@@ -1,6 +1,6 @@
 package com.joelkreutzwieser.apps.keepass.keepass;
 
-
+import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassHeader;
 import com.joelkreutzwieser.apps.keepass.keepass.util.ByteUtils;
 import com.joelkreutzwieser.apps.keepass.keepass.util.StreamUtils;
 
@@ -12,7 +12,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
+/**
+ * Based off of OpenKeePass
+ */
 public class KeePassDatabase {
 
     // Signature for KeePass 2.X
@@ -20,6 +24,7 @@ public class KeePassDatabase {
     private static final int KEEPASS_2_FILE_SIGNATURE_2 = 0xB54BFB67 & 0xFF;
     private static final int VERSION_SIGNATURE_LENGTH = 12;
 
+    private KeePassHeader keePassHeader = new KeePassHeader();
     private byte[] keePassFile;
 
     private KeePassDatabase(InputStream inputStream) {
@@ -54,7 +59,7 @@ public class KeePassDatabase {
 
         try {
             keePassDatabase.checkVersionSupport();
-
+            keePassDatabase.readHeader();
             return keePassDatabase;
         } catch (IOException e) {
             throw new RuntimeException("Could not read stream", e);
@@ -74,5 +79,35 @@ public class KeePassDatabase {
             return;
         }
         throw new UnsupportedOperationException("Not a KeePass 2.X File");
+    }
+
+    private void readHeader() throws IOException {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(new ByteArrayInputStream(keePassFile));
+        bufferedInputStream.skip(VERSION_SIGNATURE_LENGTH);
+
+        while(true) {
+            try {
+                int fieldID = bufferedInputStream.read();
+                byte[] fieldLength = new byte[2];
+                bufferedInputStream.read(fieldLength);
+
+                ByteBuffer fieldLengthBuffer = ByteBuffer.wrap(fieldLength);
+                fieldLengthBuffer.order(ByteOrder.LITTLE_ENDIAN);
+                int fieldLengthInt = ByteUtils.toUnsignedInt(fieldLengthBuffer.getShort());
+
+                if(fieldLengthInt > 0) {
+                    byte[] data = new byte[fieldLengthInt];
+                    bufferedInputStream.read(data);
+                    keePassHeader.setValue(fieldID, data);
+                    keePassHeader.increaseHeaderSize(fieldLengthInt + 3);
+                }
+
+                if(fieldID == 0) {
+                    break;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Could not read header input", e);
+            }
+        }
     }
 }
