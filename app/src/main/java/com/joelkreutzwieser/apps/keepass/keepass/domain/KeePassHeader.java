@@ -56,6 +56,10 @@ public class KeePassHeader {
         }
     }
 
+    public byte[] getCipher() {
+        return this.cipher;
+    }
+
     private void setCipher(byte[] value) {
         if (value == null || value.length != 16) {
             throw new IllegalArgumentException("The encryption cipher must contain 16 bytes");
@@ -63,76 +67,79 @@ public class KeePassHeader {
         this.cipher = value;
     }
 
-    public byte[] getCipher() {
-        return this.cipher;
-    }
-
-    private void setCompressionFlag(byte[] value) {
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        int intVale = buffer.getInt();
-        this.compression = CompressionAlgorithm.parseValue(intVale);
-    }
-
     public CompressionAlgorithm getCompressionFlag() {
         return this.compression;
     }
 
-    private void setMasterSeed(byte[] value) {
-        this.masterSeed = value;
+    private void setCompressionFlag(byte[] value) {
+        ByteBuffer buffer = ByteBuffer.wrap(value);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        int intVale = buffer.getInt();
+        this.compression = CompressionAlgorithm.parseValue(intVale);
     }
 
     public byte[] getMasterSeed() {
         return this.masterSeed;
     }
 
-    private void setTransformSeed(byte[] value) {
-        this.transformSeed = value;
+    private void setMasterSeed(byte[] value) {
+        this.masterSeed = value;
     }
 
     public byte[] getTransformSeed() {
         return this.transformSeed;
     }
 
-    private void setTransformRounds(byte[] value) {
-        ByteBuffer buffer = ByteBuffer.wrap(value);
-        this.transformRounds = buffer.getLong();
+    private void setTransformSeed(byte[] value) {
+        this.transformSeed = value;
     }
 
     public long getTransformRounds() {
         return this.transformRounds;
     }
 
-    private void setEncryptionIV(byte[] value) {
-        this.encryptionIV = value;
+    private void setTransformRounds(byte[] value) {
+        ByteBuffer buffer = ByteBuffer.wrap(value);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
+        this.transformRounds = buffer.getLong();
     }
 
     public byte[] getEncryptionIV() {
         return this.encryptionIV;
     }
 
-    private void setProtectionStreamKey(byte[] value) {
-        this.protectedStreamKey = value;
+    private void setEncryptionIV(byte[] value) {
+        this.encryptionIV = value;
     }
 
     public byte[] getProtectionStreamKey() {
         return this.protectedStreamKey;
     }
 
-    private void setStreamStartBytes(byte[] value) {
-        this.streamStartBytes = value;
+    private void setProtectionStreamKey(byte[] value) {
+        this.protectedStreamKey = value;
     }
 
     public byte[] getStreamStartBytes() {
         return this.streamStartBytes;
     }
 
+    private void setStreamStartBytes(byte[] value) {
+        this.streamStartBytes = value;
+    }
+
+    public CRSAlgorithm getInnerRandomStreamID() {
+        return this.crsAlgorithm;
+    }
+
     private void setInnerRandomStreamID(byte[] value) {
         ByteBuffer buffer = wrapInBuffer(value);
+        buffer.order(ByteOrder.LITTLE_ENDIAN);
         int intValue = buffer.getInt();
         this.crsAlgorithm = CRSAlgorithm.parseValue(intValue);
     }
 
-    public CRSAlgorithm getInnerRandomStreamID() {
+    public CRSAlgorithm getCRSAlgorithm() {
         return this.crsAlgorithm;
     }
 
