@@ -6,10 +6,10 @@ import org.simpleframework.xml.Text;
 
 @Root(strict = false)
 public class PropertyValue {
-    @Attribute(name = "Protected")
+    @Attribute(name = "Protected", required = false)
     private String isProtected;
 
-    @Text
+    @Text(required = false)
     private String value;
 
     PropertyValue() {

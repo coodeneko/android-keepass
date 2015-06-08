@@ -173,7 +173,7 @@ public class KeePassDatabase {
 
                 //System.out.print((char)line);
             }
-            return keePassDatabaseXmlParser.parse(new ByteArrayInputStream(decompressed), protectedStringCrypto);
+            return keePassDatabaseXmlParser.parse(new ByteArrayInputStream(decompressed), protectedStringCrypto, keePassHeader.getProtectionStreamKey());
         } catch (IOException e) {
             throw new RuntimeException("Could not open database file", e);
         }

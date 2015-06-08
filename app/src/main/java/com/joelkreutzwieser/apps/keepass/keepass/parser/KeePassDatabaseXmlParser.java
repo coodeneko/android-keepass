@@ -15,11 +15,13 @@ import java.io.InputStream;
 import java.util.List;
 
 public class KeePassDatabaseXmlParser {
-    public KeePassFile parse(InputStream inputStream, ProtectedStringCrypto protectedStringCrypto) throws IOException {
+    public KeePassFile parse(InputStream inputStream, ProtectedStringCrypto protectedStringCrypto, byte[] key) throws IOException {
         try {
             //KeePassFile keePassFile = JAXB.unmarshal(inputStream, KeePassFile.class);
             Serializer serializer = new Persister();
             KeePassFile keePassFile = serializer.read(KeePassFile.class, inputStream);
+            keePassFile.protectedStringCrypto = protectedStringCrypto;
+            keePassFile.key = key;
             //keePassFile.init();
 
             // Decrypt all encrypted values

@@ -4,15 +4,15 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Transient;
 
-@Root(strict = false)
+@Root(name = "String", strict = false)
 public class Property {
     @Transient
     private KeePassFileElement parent;
 
-    @Element(name = "Key")
+    @Element(name = "Key", required = false)
     private String key;
 
-    @Element(name = "Value")
+    @Element(name = "Value", required = false)
     private PropertyValue propertyValue;
 
     Property() {

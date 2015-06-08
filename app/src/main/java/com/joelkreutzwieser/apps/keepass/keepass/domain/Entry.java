@@ -1,13 +1,14 @@
 package com.joelkreutzwieser.apps.keepass.keepass.domain;
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 import org.simpleframework.xml.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Root(strict = false)
+@Root(name = "Entry", strict = false)
 public class Entry implements KeePassFileElement {
     private static final String USER_NAME = "UserName";
     private static final String NOTES = "Notes";
@@ -15,13 +16,13 @@ public class Entry implements KeePassFileElement {
     private static final String PASSWORD = "Password";
     private static final String TITLE = "Title";
 
-    @Transient
-    private KeePassFileElement parent;
-
-    @Element(name = "UUID", required = false)
+    @Element(name = "UUID", required = true)
     private String uuid;
 
-    @Element(name = "String", required = false)
+    @Element(name = "IconID", required = false)
+    private int iconID;
+
+    @ElementList(name = "String", required = false, inline = true)
     private List<Property> properties = new ArrayList<Property>();
 
     @Element(name = "History", required = false)
@@ -32,10 +33,6 @@ public class Entry implements KeePassFileElement {
 
     public Entry(String uuid) {
         setUuid(uuid);
-    }
-
-    public void setParent(KeePassFileElement element) {
-        this.parent = element;
     }
 
     public String getUuid() {

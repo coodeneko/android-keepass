@@ -16,7 +16,10 @@ public class KeePassFile implements KeePassFileElement {
     private KeePassFileRoot root;
 
     @Transient
-    private ProtectedStringCrypto protectedStringCrypto;
+    public ProtectedStringCrypto protectedStringCrypto;
+
+    @Transient
+    public byte[] key;
 
     public Meta getMeta() {
         return this.meta;
@@ -32,6 +35,10 @@ public class KeePassFile implements KeePassFileElement {
 
     public void setRoot(KeePassFileRoot root) {
         this.root = root;
+    }
+
+    public Group getMainGroup() {
+        return this.root.getGroup();
     }
 
     /*public List<Group> getTopGroups() {
