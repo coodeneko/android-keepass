@@ -37,7 +37,7 @@ public class KeePassDatabase {
     private static final int KEEPASS_2_FILE_SIGNATURE_2 = 0xB54BFB67 & 0xFF;
     protected Decrypter decrypter = new Decrypter();
     protected KeePassDatabaseXmlParser keePassDatabaseXmlParser = new KeePassDatabaseXmlParser();
-    private KeePassHeader keePassHeader = new KeePassHeader();
+    public KeePassHeader keePassHeader = new KeePassHeader();
     private byte[] keePassFile;
 
     private KeePassDatabase(InputStream inputStream) {

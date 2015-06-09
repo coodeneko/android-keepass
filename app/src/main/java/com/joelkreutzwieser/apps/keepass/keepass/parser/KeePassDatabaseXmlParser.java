@@ -21,7 +21,13 @@ public class KeePassDatabaseXmlParser {
             Serializer serializer = new Persister();
             KeePassFile keePassFile = serializer.read(KeePassFile.class, inputStream);
             keePassFile.protectedStringCrypto = protectedStringCrypto;
-            keePassFile.key = key;
+            List<Entry> entries = keePassFile.getRoot().getAllEntries();
+            for (Entry entry : entries) {
+                decryptAndSetValues(entry, protectedStringCrypto);
+                /*for (Entry historicEntry : history.getHistoricalEntries()) {
+                    decryptAndSetValues(historicEntry, protectedStringCrypto);
+                }*/
+            }
             //keePassFile.init();
 
             // Decrypt all encrypted values
