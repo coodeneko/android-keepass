@@ -14,6 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.joelkreutzwieser.apps.keepass.keepass.KeePassDatabase;
+import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
+import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
+
+import java.io.InputStream;
+import java.util.List;
+
 public class EntryListActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
@@ -56,8 +63,10 @@ public class EntryListActivity extends Activity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        String[] myDataset = new String[] {"HI", "This", "TEST"};
-        mAdapter = new MyAdapter(myDataset);
+        InputStream databaseInputStream = getResources().openRawResource(R.raw.testdatabase);
+        KeePassFile database = KeePassDatabase.getInstance(databaseInputStream).openDatabase("abcdefg");
+        List<Group> groups = database.getMainGroup().getGroups();
+        mAdapter = new MyAdapter(groups);
         mRecyclerView.setAdapter(mAdapter);
     }
 

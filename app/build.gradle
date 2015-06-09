@@ -29,7 +29,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //compile 'com.android.support:support-v4:23.+'
     compile 'com.android.support:support-v4:22.2.0'
-    compile 'org.simpleframework:simple-xml:2.5'
+    compile 'org.simpleframework:simple-xml:2.7.1'
     compile 'com.madgag.spongycastle:core:1.51.0.0'
     compile 'com.madgag.spongycastle:prov:1.51.0.0'
     compile 'com.madgag.spongycastle:pg:1.51.0.0'
