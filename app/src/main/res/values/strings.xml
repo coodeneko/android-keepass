@@ -17,4 +17,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_group_view">GroupViewActivity</string>
+    <string name="action_search">action_search</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

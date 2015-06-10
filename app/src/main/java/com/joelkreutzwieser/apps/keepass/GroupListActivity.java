@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
-import com.joelkreutzwieser.apps.keepass.keepass.ActiveItem;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass.keepass;
+package com.joelkreutzwieser.apps.keepass;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
@@ -16,7 +16,7 @@ public class ActiveItem {
     }
 
     public String getUUID() {
-        if(type == "Entry") {
+        if(type.equals("Entry")) {
             return ((Entry)this.item).getUuid();
         }
         return ((Group)this.item).getUuid();
