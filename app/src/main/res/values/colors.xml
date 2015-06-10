@@ -1,0 +1,7 @@
+<resources>
+
+    <color name="ColorPrimary">#5081ff</color>
+    <color name="ColorPrimaryDark">#080fe6</color>
+    <color name="black_overlay">#66000000</color>
+
+</resources>

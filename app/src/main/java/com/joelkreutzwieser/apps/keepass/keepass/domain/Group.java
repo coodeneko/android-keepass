@@ -3,8 +3,6 @@ package com.joelkreutzwieser.apps.keepass.keepass.domain;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Text;
-import org.simpleframework.xml.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +81,37 @@ public class Group implements KeePassFileElement {
     public List<Entry> getAllEntries() {
         List<Entry> entries = new ArrayList<Entry>();
         entries.addAll(this.entries);
-        for(Group group : this.groups) {
+        for (Group group : this.groups) {
             entries.addAll(group.getAllEntries());
         }
         return entries;
+    }
+
+    public Group getGroupByUUID(String UUID) {
+        for (Group group : this.groups) {
+            if (group.getUuid().equals(UUID)) {
+                return group;
+            }
+            Group subGroup = group.getGroupByUUID(UUID);
+            if (subGroup != null) {
+                return subGroup;
+            }
+        }
+        return null;
+    }
+
+    public Entry getEntryByUUID(String UUID) {
+        for (Entry entry : this.entries) {
+            if (entry.getUuid().equals(UUID)) {
+                return entry;
+            }
+        }
+        for (Group group : this.groups) {
+            Entry subEntry = group.getEntryByUUID(UUID);
+            if (subEntry != null) {
+                return subEntry;
+            }
+        }
+        return null;
     }
 }

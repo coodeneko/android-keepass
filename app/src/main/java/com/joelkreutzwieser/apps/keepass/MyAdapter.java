@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.joelkreutzwieser.apps.keepass.keepass.Tuple;
-import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
+import com.joelkreutzwieser.apps.keepass.keepass.ActiveItem;
 
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    private List<Tuple> mDataset;
+    private List<ActiveItem> mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -31,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Tuple> myDataset) {
+    public MyAdapter(List<ActiveItem> myDataset) {
         mDataset = myDataset;
     }
 

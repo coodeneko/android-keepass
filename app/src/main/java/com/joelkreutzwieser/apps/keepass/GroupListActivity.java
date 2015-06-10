@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -15,21 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.joelkreutzwieser.apps.keepass.keepass.KeePassDatabase;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
-import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
-import com.joelkreutzwieser.apps.keepass.keepass.Tuple;
+import com.joelkreutzwieser.apps.keepass.keepass.ActiveItem;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntryListActivity extends Activity
+public class GroupListActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -41,9 +34,9 @@ public class EntryListActivity extends Activity
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    public final static String EXTRA_MESSAGE = "com.joelkreutzwieser.app.keepass.MESSAGE";
+    public final static String NEXT_ITEM_UUID = "com.joelkreutzwieser.app.keepass.NEXT_ITEM_UUID";
 
-    List<Tuple> items;
+    List<ActiveItem> items;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -54,6 +47,9 @@ public class EntryListActivity extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_list);
+        Intent intent = getIntent();
+
+        String UUID = intent.getStringExtra(GroupListActivity.NEXT_ITEM_UUID);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -75,15 +71,25 @@ public class EntryListActivity extends Activity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        InputStream databaseInputStream = getResources().openRawResource(R.raw.testdatabase);
-        KeePassFile database = KeePassDatabase.getInstance(databaseInputStream).openDatabase("abcdefg");
-        List<Entry> entries = database.getMainGroup().getEntries();
-        List<Group> groups = database.getMainGroup().getGroups();
+        Group activeGroup;
+        if(((ApplicationBase)this.getApplication()).getDatabaseRoot() == null || UUID == null) {
+            ((ApplicationBase)this.getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
+            activeGroup = ((ApplicationBase)this.getApplication()).getDatabaseRoot();
+        } else {
+            activeGroup = ((ApplicationBase)this.getApplication()).getDatabaseRoot().getGroupByUUID(UUID);
+            if(activeGroup == null) {
+                activeGroup = ((ApplicationBase)this.getApplication()).getDatabaseRoot();
+            }
+        }
+
+        setTitle(activeGroup.getName());
+        List<Entry> entries = activeGroup.getEntries();
+        List<Group> groups = activeGroup.getGroups();
         items = new ArrayList<>();
         for(Group group : groups)
-            items.add(new Tuple(group.getName(), "Group"));
+            items.add(new ActiveItem(group.getName(), "Group", group));
         for(Entry entry : entries)
-            items.add(new Tuple(entry.getTitle(), "Entry"));
+            items.add(new ActiveItem(entry.getTitle(), "Entry", entry));
         mAdapter = new MyAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -175,27 +181,27 @@ public class EntryListActivity extends Activity
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_entry_list, container, false);
-            return rootView;
+            return inflater.inflate(R.layout.fragment_entry_list, container, false);
         }
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((EntryListActivity) activity).onSectionAttached(
+            ((GroupListActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 
     public void clickItem(View view) {
-        //Intent intent = new Intent(this, DisplayMessageActivity.class);
         int selectedItemPosition = mRecyclerView.getChildPosition(view);
-        Tuple item = items.get(selectedItemPosition);
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, item.name, duration);
-        toast.show();
-        //intent.putExtra(EXTRA_MESSAGE, name);
-        //startActivity(intent);
+        ActiveItem item = items.get(selectedItemPosition);
+        Intent intent;
+        if(item.type.equals("Group")) {
+            intent = new Intent(this, GroupListActivity.class);
+        } else {
+            intent = new Intent(this, EntryViewActivity.class);
+        }
+        intent.putExtra(NEXT_ITEM_UUID, item.getUUID());
+        startActivity(intent);
     }
 }
