@@ -18,6 +18,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_group_view">GroupViewActivity</string>
-    <string name="action_search">action_search</string>
+    <string name="action_search">Search for Entry</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="navigate">Navigate</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
