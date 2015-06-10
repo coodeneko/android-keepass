@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,12 +15,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.KeePassDatabase;
+import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
+import com.joelkreutzwieser.apps.keepass.keepass.Tuple;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EntryListActivity extends Activity
@@ -32,6 +40,10 @@ public class EntryListActivity extends Activity
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    public final static String EXTRA_MESSAGE = "com.joelkreutzwieser.app.keepass.MESSAGE";
+
+    List<Tuple> items;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -65,8 +77,14 @@ public class EntryListActivity extends Activity
         // specify an adapter (see also next example)
         InputStream databaseInputStream = getResources().openRawResource(R.raw.testdatabase);
         KeePassFile database = KeePassDatabase.getInstance(databaseInputStream).openDatabase("abcdefg");
+        List<Entry> entries = database.getMainGroup().getEntries();
         List<Group> groups = database.getMainGroup().getGroups();
-        mAdapter = new MyAdapter(groups);
+        items = new ArrayList<>();
+        for(Group group : groups)
+            items.add(new Tuple(group.getName(), "Group"));
+        for(Entry entry : entries)
+            items.add(new Tuple(entry.getTitle(), "Entry"));
+        mAdapter = new MyAdapter(items);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -169,4 +187,15 @@ public class EntryListActivity extends Activity
         }
     }
 
+    public void clickItem(View view) {
+        //Intent intent = new Intent(this, DisplayMessageActivity.class);
+        int selectedItemPosition = mRecyclerView.getChildPosition(view);
+        Tuple item = items.get(selectedItemPosition);
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, item.name, duration);
+        toast.show();
+        //intent.putExtra(EXTRA_MESSAGE, name);
+        //startActivity(intent);
+    }
 }
