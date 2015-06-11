@@ -39,8 +39,6 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean userLearnedDrawer;
     private boolean fromSavedInstanceState;
 
-    List<ActiveItem> items;
-
     public NavigationDrawerFragment() {
         // Required empty public constructor
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/entryItem"
     android:layout_width="match_parent"
     android:layout_height="72dp">
 
@@ -15,25 +16,25 @@
         android:id="@+id/entryTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="72dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="16dp"
         android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
+        android:paddingEnd="16dp"
+        android:paddingStart="72dp"
+        android:paddingTop="16dp"
+        android:text="Hi!"
         android:textColor="#000000"
-        android:text="Hi!" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/entrySubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="72dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="8dp"
         android:layout_below="@+id/entryTitle"
         android:fontFamily="sans-serif"
-        android:textSize="14sp"
+        android:paddingEnd="16dp"
+        android:paddingStart="72dp"
+        android:paddingTop="8dp"
+        android:text="More!"
         android:textColor="#000000"
-        android:text="More!" />
+        android:textSize="14sp" />
 
 </RelativeLayout>

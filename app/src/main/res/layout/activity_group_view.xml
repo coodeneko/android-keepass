@@ -14,11 +14,14 @@
             android:id="@+id/app_bar"
             layout="@layout/app_bar"></include>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/app_bar"
-            android:text="@string/hello_world" />
+            android:id="@+id/entryList"
+            android:layout="@layout/fragment_entry_list"
+            android:name="com.joelkreutzwieser.apps.keepass.EntryListFragment"
+            tools:layout="@layout/fragment_entry_list" />
 
     </RelativeLayout>
 
