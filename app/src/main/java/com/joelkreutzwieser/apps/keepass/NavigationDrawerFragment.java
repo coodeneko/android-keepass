@@ -14,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -74,11 +72,8 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
         List<Group> groups = activeGroup.getAllGroups();
-        items = new ArrayList<>();
-        for(Group group : groups)
-            items.add(new ActiveItem(group.getName(), "Group", group));
-        items.addAll(items);
-        adapter = new MyAdapter(items);
+        groups.addAll(groups);
+        adapter = new NavigationGroupAdapter(groups);
         recyclerView.setAdapter(adapter);
 
         return layout;

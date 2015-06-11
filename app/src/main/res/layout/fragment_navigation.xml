@@ -5,7 +5,6 @@
     android:background="@color/ColorNavigation"
     tools:context="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:id="@+id/navigationHeaderImage"
         android:layout_width="match_parent"
@@ -20,11 +19,11 @@
             android:layout_above="@+id/navigationHeaderDatabaseName"
             android:layout_alignParentStart="true"
             android:fontFamily="sans-serif-medium"
-            android:textSize="14sp"
+            android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:text="KeePass" />
+            android:text="KeePass"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/navigationHeaderDatabaseName"
@@ -33,11 +32,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:fontFamily="sans-serif"
-            android:textSize="14sp"
-            android:paddingStart="16dp"
             android:paddingBottom="8dp"
             android:paddingEnd="16dp"
-            android:text="Database Name" />
+            android:paddingStart="16dp"
+            android:text="Database Name"
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/navigationHeaderDownArrow"
@@ -60,8 +59,36 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/navigationGroupList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/navigationSpace"
+        android:paddingBottom="56dp"
         android:scrollbars="vertical" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:src="@drawable/ic_settings_black_24dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:padding="16dp"
+            android:text="@string/action_settings"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -7,17 +7,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
+
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class NavigationGroupAdapter extends RecyclerView.Adapter<NavigationGroupAdapter.ViewHolder> {
 
-    private List<ActiveItem> mDataset;
+    private List<Group> mDataset;
 
-    // Provide a reference to the views for each data navigation_item
-    // Complex data items may need more than one view per navigation_item, and
-    // you provide access to all the views for a data navigation_item in a view holder
+    // Provide a reference to the views for each data item_navigation
+    // Complex data items may need more than one view per item_navigation, and
+    // you provide access to all the views for a data item_navigation in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data navigation_item is just a string in this case
+        // each data item_navigation is just a string in this case
         public LinearLayout mHolder;
         public TextView mTextView;
         public ViewHolder(View v) {
@@ -28,17 +30,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<ActiveItem> myDataset) {
+    public NavigationGroupAdapter(List<Group> myDataset) {
         mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public NavigationGroupAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.navigation_item, parent, false);
+                .inflate(R.layout.item_navigation, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
@@ -49,7 +51,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).name);
+        holder.mTextView.setText(mDataset.get(position).getName());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
