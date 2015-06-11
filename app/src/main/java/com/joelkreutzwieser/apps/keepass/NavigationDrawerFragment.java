@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -80,8 +81,9 @@ public class NavigationDrawerFragment extends Fragment {
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         }
 
-        groups = activeGroup.getAllGroups();
-        groups.addAll(groups);
+        groups = new ArrayList<>();
+        groups.add(activeGroup);
+        groups.addAll(activeGroup.getAllGroups());
         adapter = new NavigationGroupAdapter(groups);
         recyclerView.setAdapter(adapter);
 
@@ -142,8 +144,6 @@ public class NavigationDrawerFragment extends Fragment {
     public void clickItem(View view) {
         int selectedItemPosition = recyclerView.getChildPosition(view);
         Group item = groups.get(selectedItemPosition);
-        /*Toast toast = Toast.makeText(getActivity().getApplicationContext(), item.getName(), Toast.LENGTH_SHORT);
-        toast.show();*/
         sendToActivity.onNavigationItemSelected(item);
         drawerLayout.closeDrawers();
     }

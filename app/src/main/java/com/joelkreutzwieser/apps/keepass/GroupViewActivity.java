@@ -62,5 +62,8 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     public void onNavigationItemSelected(Group item) {
         Toast toast = Toast.makeText(getApplicationContext(), item.getName(), Toast.LENGTH_SHORT);
         toast.show();
+        setTitle(item.getName());
+        EntryListFragment entryListFragment = (EntryListFragment)getSupportFragmentManager().findFragmentById(R.id.entryList);
+        entryListFragment.changeEntries(item);
     }
 }

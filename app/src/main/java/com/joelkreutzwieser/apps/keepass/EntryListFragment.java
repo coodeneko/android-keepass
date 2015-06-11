@@ -2,12 +2,13 @@ package com.joelkreutzwieser.apps.keepass;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
@@ -24,6 +25,7 @@ public class EntryListFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    Group activeGroup;
 
     public EntryListFragment() {
         // Required empty public constructor
@@ -42,7 +44,7 @@ public class EntryListFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        Group activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
+        activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         if (activeGroup == null) {
             ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
@@ -55,5 +57,14 @@ public class EntryListFragment extends Fragment {
         return layout;
     }
 
-
+    public void changeEntries(Group group){
+        activeGroup = group;
+        if (activeGroup == null) {
+            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
+            activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
+        }
+        List<Entry> entries = activeGroup.getAllEntries();
+        adapter = new EntryListEntryAdapter(entries);
+        recyclerView.swapAdapter(adapter, false);
+    }
 }

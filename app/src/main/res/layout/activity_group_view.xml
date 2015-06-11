@@ -15,22 +15,22 @@
             layout="@layout/app_bar"></include>
 
         <fragment
+            android:id="@+id/entryList"
+            android:name="com.joelkreutzwieser.apps.keepass.EntryListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/app_bar"
-            android:id="@+id/entryList"
             android:layout="@layout/fragment_entry_list"
-            android:name="com.joelkreutzwieser.apps.keepass.EntryListFragment"
             tools:layout="@layout/fragment_entry_list" />
 
     </RelativeLayout>
 
     <fragment
         android:id="@+id/navigation_drawer"
+        android:name="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:layout="@layout/fragment_navigation"
-        android:name="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment"
         tools:layout="@layout/fragment_navigation" />
 </android.support.v4.widget.DrawerLayout>
