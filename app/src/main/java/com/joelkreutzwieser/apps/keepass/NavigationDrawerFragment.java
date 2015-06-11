@@ -1,7 +1,9 @@
 package com.joelkreutzwieser.apps.keepass;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
@@ -38,6 +41,14 @@ public class NavigationDrawerFragment extends Fragment {
 
     private boolean userLearnedDrawer;
     private boolean fromSavedInstanceState;
+
+    List<Group> groups;
+
+    OnNavigationItemSelectedListener sendToActivity;
+
+    public interface OnNavigationItemSelectedListener {
+        public void onNavigationItemSelected(Group item);
+    }
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -69,7 +80,7 @@ public class NavigationDrawerFragment extends Fragment {
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         }
 
-        List<Group> groups = activeGroup.getAllGroups();
+        groups = activeGroup.getAllGroups();
         groups.addAll(groups);
         adapter = new NavigationGroupAdapter(groups);
         recyclerView.setAdapter(adapter);
@@ -126,5 +137,20 @@ public class NavigationDrawerFragment extends Fragment {
     public static boolean readFromPreferences(Context context, String preferenceName, boolean defaultValue) {
         SharedPreferences sharedPreference = context.getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
         return sharedPreference.getBoolean(preferenceName, defaultValue);
+    }
+
+    public void clickItem(View view) {
+        int selectedItemPosition = recyclerView.getChildPosition(view);
+        Group item = groups.get(selectedItemPosition);
+        /*Toast toast = Toast.makeText(getActivity().getApplicationContext(), item.getName(), Toast.LENGTH_SHORT);
+        toast.show();*/
+        sendToActivity.onNavigationItemSelected(item);
+        drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        sendToActivity = (OnNavigationItemSelectedListener)activity;
     }
 }
