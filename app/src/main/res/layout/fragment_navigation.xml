@@ -1,11 +1,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ColorNavigation"
     tools:context="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <RelativeLayout
+        android:id="@+id/navigationHeaderImage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigationHeaderImageHeight"
+        android:background="@drawable/ic_drawer"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/navigationHeaderTitle"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/navigationHeaderDatabaseName"
+            android:layout_alignParentStart="true"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:text="KeePass" />
+
+        <TextView
+            android:id="@+id/navigationHeaderDatabaseName"
+            android:layout_width="232dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:fontFamily="sans-serif"
+            android:textSize="14sp"
+            android:paddingStart="16dp"
+            android:paddingBottom="8dp"
+            android:paddingEnd="16dp"
+            android:text="Database Name" />
+
+        <ImageView
+            android:id="@+id/navigationHeaderDownArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="DownArrow"
+            android:padding="16dp"
+            android:src="@drawable/ic_arrow_drop_down_black_24dp" />
+    </RelativeLayout>
+
+
+    <Space
+        android:id="@+id/navigationSpace"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_below="@+id/navigationHeaderImage" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigationGroupList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navigationSpace"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

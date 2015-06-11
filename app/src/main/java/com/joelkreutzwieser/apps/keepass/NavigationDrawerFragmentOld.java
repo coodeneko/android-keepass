@@ -30,7 +30,7 @@ import android.widget.Toast;
 public class NavigationDrawerFragmentOld extends Fragment {
 
     /**
-     * Remember the position of the selected item.
+     * Remember the position of the selected navigation_item.
      */
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
@@ -75,7 +75,7 @@ public class NavigationDrawerFragmentOld extends Fragment {
             mFromSavedInstanceState = true;
         }
 
-        // Select either the default item (0) or the last selected item.
+        // Select either the default navigation_item (0) or the last selected navigation_item.
         selectItem(mCurrentSelectedPosition);
     }
 
@@ -275,7 +275,7 @@ public class NavigationDrawerFragmentOld extends Fragment {
      */
     public interface NavigationDrawerCallbacks {
         /**
-         * Called when an item in the navigation drawer is selected.
+         * Called when an navigation_item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
     }

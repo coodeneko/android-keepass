@@ -16,6 +16,15 @@ public class KeePassFileRoot implements KeePassFileElement {
         return this.Group;
     }
 
+    public List<Group> getAllGroups() {
+        List<Group> groups = new ArrayList<Group>();
+        for (Group group : this.Group.getGroups()) {
+            groups.add(group);
+            groups.addAll(group.getAllGroups());
+        }
+        return groups;
+    }
+
     public List<Entry> getAllEntries() {
         List<Entry> entries = new ArrayList<Entry>();
         entries.addAll(this.Group.getEntries());

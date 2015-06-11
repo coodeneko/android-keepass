@@ -7,10 +7,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
+import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -26,8 +34,14 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout drawerLayout;
     private View containerView;
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
     private boolean userLearnedDrawer;
     private boolean fromSavedInstanceState;
+
+    List<ActiveItem> items;
 
     public NavigationDrawerFragment() {
         // Required empty public constructor
@@ -37,7 +51,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userLearnedDrawer = readFromPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, false);
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             fromSavedInstanceState = true;
         }
     }
@@ -46,7 +60,28 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_navigation, container, false);
+        View layout = inflater.inflate(R.layout.fragment_navigation, container, false);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.navigationGroupList);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        Group activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
+        if (activeGroup == null) {
+            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
+            activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
+        }
+
+        List<Group> groups = activeGroup.getAllGroups();
+        items = new ArrayList<>();
+        for(Group group : groups)
+            items.add(new ActiveItem(group.getName(), "Group", group));
+        items.addAll(items);
+        adapter = new MyAdapter(items);
+        recyclerView.setAdapter(adapter);
+
+        return layout;
     }
 
 
@@ -57,7 +92,7 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                if(!userLearnedDrawer) {
+                if (!userLearnedDrawer) {
                     userLearnedDrawer = true;
                     savedToPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, true);
                 }
@@ -76,7 +111,7 @@ public class NavigationDrawerFragment extends Fragment {
 
             }
         };
-        if(!userLearnedDrawer && !fromSavedInstanceState) {
+        if (!userLearnedDrawer && !fromSavedInstanceState) {
             drawerLayout.openDrawer(this.containerView);
         }
         this.drawerLayout.setDrawerListener(this.drawerToggle);

@@ -70,6 +70,15 @@ public class Group implements KeePassFileElement {
         this.groups = groups;
     }
 
+    public List<Group> getAllGroups() {
+        List<Group> groups = new ArrayList<Group>();
+        for (Group group : this.groups) {
+            groups.add(group);
+            groups.addAll(group.getAllGroups());
+        }
+        return groups;
+    }
+
     public List<Entry> getEntries() {
         return this.entries;
     }

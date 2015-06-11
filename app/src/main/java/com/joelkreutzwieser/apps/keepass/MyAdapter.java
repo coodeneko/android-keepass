@@ -13,11 +13,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private List<ActiveItem> mDataset;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+    // Provide a reference to the views for each data navigation_item
+    // Complex data items may need more than one view per navigation_item, and
+    // you provide access to all the views for a data navigation_item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+        // each data navigation_item is just a string in this case
         public LinearLayout mHolder;
         public TextView mTextView;
         public ViewHolder(View v) {
@@ -37,11 +37,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.navigation_item, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
     // Replace the contents of a view (invoked by the layout manager)

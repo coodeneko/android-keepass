@@ -65,13 +65,13 @@ public class KeePassFile implements KeePassFileElement {
         return ListFilter.filter(allEntries, new Filter<Entry>() {
 
             @Override
-            public boolean matches(Entry item) {
+            public boolean matches(Entry navigation_item) {
                 if (matchExactly) {
-                    if (item.getTitle() != null && item.getTitle().equalsIgnoreCase(title)) {
+                    if (navigation_item.getTitle() != null && navigation_item.getTitle().equalsIgnoreCase(title)) {
                         return true;
                     }
                 } else {
-                    if (item.getTitle() != null && item.getTitle().contains(title)) {
+                    if (navigation_item.getTitle() != null && navigation_item.getTitle().contains(title)) {
                         return true;
                     }
                 }
