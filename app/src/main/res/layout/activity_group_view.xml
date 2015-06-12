@@ -12,7 +12,7 @@
 
         <include
             android:id="@+id/app_bar"
-            layout="@layout/app_bar"></include>
+            layout="@layout/app_bar" />
 
         <fragment
             android:id="@+id/entryList"
@@ -33,4 +33,5 @@
         android:layout_gravity="start"
         app:layout="@layout/fragment_navigation"
         tools:layout="@layout/fragment_navigation" />
+
 </android.support.v4.widget.DrawerLayout>

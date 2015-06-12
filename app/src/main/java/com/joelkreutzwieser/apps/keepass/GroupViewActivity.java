@@ -2,6 +2,7 @@ package com.joelkreutzwieser.apps.keepass;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
 
     private Toolbar toolbar;
     private NavigationDrawerFragment drawerFragment;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,8 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        drawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerFragment.setUp(R.id.navigation_drawer, drawerLayout, toolbar);
     }
 
     @Override
@@ -65,5 +68,14 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         setTitle(item.getName());
         EntryListFragment entryListFragment = (EntryListFragment)getSupportFragmentManager().findFragmentById(R.id.entryList);
         entryListFragment.changeEntries(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

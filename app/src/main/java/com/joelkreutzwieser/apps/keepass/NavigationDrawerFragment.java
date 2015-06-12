@@ -81,7 +81,7 @@ public class NavigationDrawerFragment extends Fragment {
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         }
 
-        groups = new ArrayList<>();
+        groups = new ArrayList<Group>();
         groups.add(activeGroup);
         groups.addAll(activeGroup.getAllGroups());
         adapter = new NavigationGroupAdapter(groups);
