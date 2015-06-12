@@ -1,7 +1,6 @@
 package com.joelkreutzwieser.apps.keepass.keepass.domain;
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class KeePassFileRoot implements KeePassFileElement {
     }
 
     public List<Group> getAllGroups() {
-        List<Group> groups = new ArrayList<Group>();
+        List<Group> groups = new ArrayList<>();
         for (Group group : this.Group.getGroups()) {
             groups.add(group);
             groups.addAll(group.getAllGroups());
@@ -26,7 +25,7 @@ public class KeePassFileRoot implements KeePassFileElement {
     }
 
     public List<Entry> getAllEntries() {
-        List<Entry> entries = new ArrayList<Entry>();
+        List<Entry> entries = new ArrayList<>();
         entries.addAll(this.Group.getEntries());
         for(Group group : this.Group.getGroups()) {
             entries.addAll(group.getAllEntries());

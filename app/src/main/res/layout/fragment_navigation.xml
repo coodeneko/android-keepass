@@ -9,7 +9,7 @@
         android:id="@+id/navigationHeaderImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigationHeaderImageHeight"
-        android:background="@drawable/ic_drawer"
+        android:background="@drawable/ic_lock_outline_black_24dp"
         android:orientation="vertical">
 
         <TextView

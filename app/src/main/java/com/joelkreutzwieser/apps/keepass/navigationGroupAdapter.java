@@ -42,8 +42,7 @@ public class NavigationGroupAdapter extends RecyclerView.Adapter<NavigationGroup
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_navigation, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)

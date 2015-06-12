@@ -6,7 +6,7 @@ import java.util.List;
 public class ListFilter {
 
     public static <T> List<T> filter(List<T> items, Filter<T> filter) {
-        List<T> filteredList = new ArrayList<T>();
+        List<T> filteredList = new ArrayList<>();
 
         for (T item : items) {
 

@@ -18,9 +18,9 @@ public class ByteUtils {
 
     public static String toHexString(byte[] bytes) {
         StringBuffer buffer = new StringBuffer();
-        for (int i = 0; i < bytes.length; i++) {
-            buffer.append(Character.forDigit((bytes[i] >> 4) & 0xF, 16));
-            buffer.append(Character.forDigit((bytes[i] & 0xF), 16));
+        for(byte i : bytes) {
+            buffer.append(Character.forDigit((i >> 4) & 0xF, 16));
+            buffer.append(Character.forDigit((i & 0xF), 16));
         }
 
         return buffer.toString();

@@ -2,7 +2,6 @@ package com.joelkreutzwieser.apps.keepass.keepass.parser;
 
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.ProtectedStringCrypto;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
-import com.joelkreutzwieser.apps.keepass.keepass.domain.History;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Property;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.PropertyValue;

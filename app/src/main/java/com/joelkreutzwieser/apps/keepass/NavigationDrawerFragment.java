@@ -3,7 +3,6 @@ package com.joelkreutzwieser.apps.keepass;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
@@ -48,7 +46,7 @@ public class NavigationDrawerFragment extends Fragment {
     OnNavigationItemSelectedListener sendToActivity;
 
     public interface OnNavigationItemSelectedListener {
-        public void onNavigationItemSelected(Group item);
+        void onNavigationItemSelected(Group item);
     }
 
     public NavigationDrawerFragment() {
@@ -81,7 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         }
 
-        groups = new ArrayList<Group>();
+        groups = new ArrayList<>();
         groups.add(activeGroup);
         groups.addAll(activeGroup.getAllGroups());
         adapter = new NavigationGroupAdapter(groups);
@@ -142,7 +140,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void clickItem(View view) {
-        int selectedItemPosition = recyclerView.getChildPosition(view);
+        int selectedItemPosition = recyclerView.getChildLayoutPosition(view);
         Group item = groups.get(selectedItemPosition);
         sendToActivity.onNavigationItemSelected(item);
         drawerLayout.closeDrawers();

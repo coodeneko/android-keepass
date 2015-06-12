@@ -3,7 +3,6 @@ package com.joelkreutzwieser.apps.keepass.keepass.domain;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class Entry implements KeePassFileElement {
     private int iconID;
 
     @ElementList(name = "String", required = false, inline = true)
-    private List<Property> properties = new ArrayList<Property>();
+    private List<Property> properties = new ArrayList<>();
 
     @Element(name = "History", required = false)
     private History history;

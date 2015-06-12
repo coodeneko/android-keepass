@@ -25,10 +25,10 @@ public class Group implements KeePassFileElement {
     private String IconID;
 
     @ElementList(name = "Group", required = false, inline = true)
-    private List<Group> groups = new ArrayList<Group>();
+    private List<Group> groups = new ArrayList<>();
 
     @ElementList(name = "Entry", required = false, inline = true)
-    private List<Entry> entries = new ArrayList<Entry>();
+    private List<Entry> entries = new ArrayList<>();
 
     /*public void setParent(KeePassFileElement element) {
         //this.parent = element;
@@ -71,7 +71,7 @@ public class Group implements KeePassFileElement {
     }
 
     public List<Group> getAllGroups() {
-        List<Group> groups = new ArrayList<Group>();
+        List<Group> groups = new ArrayList<>();
         for (Group group : this.groups) {
             groups.add(group);
             groups.addAll(group.getAllGroups());
@@ -88,7 +88,7 @@ public class Group implements KeePassFileElement {
     }
 
     public List<Entry> getAllEntries() {
-        List<Entry> entries = new ArrayList<Entry>();
+        List<Entry> entries = new ArrayList<>();
         entries.addAll(this.entries);
         for (Group group : this.groups) {
             entries.addAll(group.getAllEntries());

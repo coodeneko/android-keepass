@@ -3,8 +3,6 @@ package com.joelkreutzwieser.apps.keepass.keepass.domain;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import java.util.Calendar;
-
 @Root(strict = false)
 public class Meta {
     @Element(name = "Generator")
