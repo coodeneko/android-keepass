@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-MNC'
+    compileSdkVersion 22
     buildToolsVersion '23.0.0 rc2'
 
     defaultConfig {
         applicationId "com.joelkreutzwieser.apps.keepass"
-        minSdkVersion 'MNC'
-        targetSdkVersion 'MNC'
+        minSdkVersion 17
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
