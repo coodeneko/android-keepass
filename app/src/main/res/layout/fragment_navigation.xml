@@ -83,7 +83,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif-medium"
-            android:padding="16dp"
+            android:gravity="start|center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
             android:text="@string/action_settings"
             android:textColor="#000000"
             android:textSize="14sp" />

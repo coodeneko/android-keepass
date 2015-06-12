@@ -9,18 +9,21 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:gravity="center"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
         android:src="@drawable/ic_lock_outline_black_24dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:layout_height="match_parent"
         android:fontFamily="sans-serif-medium"
-        android:textSize="14sp"
+        android:gravity="start|center"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="Hi!"
         android:textColor="#000000"
-        android:text="Hi!" />
+        android:textSize="14sp" />
 
 </LinearLayout>
