@@ -2,22 +2,28 @@ package com.joelkreutzwieser.apps.keepass;
 
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
-public class GroupViewActivity extends AppCompatActivity implements NavigationDrawerFragment.OnNavigationItemSelectedListener {
+public class GroupViewActivity extends AppCompatActivity implements NavigationDrawerFragment.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private Toolbar toolbar;
     private NavigationDrawerFragment drawerFragment;
-    private DrawerLayout drawerLayout;
+    private KeePassDrawerLayout drawerLayout;
+
+    private Button mQueen;
+    private Button mHidden;
+    private KeePassDrawerLayout mOuterLayout;
+    private LinearLayout mMainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +33,24 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (KeePassDrawerLayout) findViewById(R.id.drawer_layout);
         drawerFragment.setUp(R.id.navigation_drawer, drawerLayout, toolbar);
+
+        mOuterLayout = (KeePassDrawerLayout) findViewById(R.id.drawer_layout);
+        mMainLayout = (LinearLayout) findViewById(R.id.main_layout);
+        mQueen = (Button) findViewById(R.id.queen_button);
+        mQueen.setOnClickListener(this);
+        mMainLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                if (mOuterLayout.isMoving()) {
+                    v.setTop(oldTop);
+                    v.setBottom(oldBottom);
+                    v.setLeft(oldLeft);
+                    v.setRight(oldRight);
+                }
+            }
+        });
     }
 
     @Override
@@ -76,5 +98,12 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Button b = (Button) v;
+        Toast t = Toast.makeText(this, b.getText() + " clicked", Toast.LENGTH_SHORT);
+        t.show();
     }
 }
