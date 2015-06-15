@@ -35,22 +35,6 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         drawerLayout = (KeePassDrawerLayout) findViewById(R.id.drawer_layout);
         drawerFragment.setUp(R.id.navigation_drawer, drawerLayout, toolbar);
-
-        mOuterLayout = (KeePassDrawerLayout) findViewById(R.id.drawer_layout);
-        mMainLayout = (LinearLayout) findViewById(R.id.main_layout);
-        mQueen = (Button) findViewById(R.id.queen_button);
-        mQueen.setOnClickListener(this);
-        mMainLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (mOuterLayout.isMoving()) {
-                    v.setTop(oldTop);
-                    v.setBottom(oldBottom);
-                    v.setLeft(oldLeft);
-                    v.setRight(oldRight);
-                }
-            }
-        });
     }
 
     @Override
