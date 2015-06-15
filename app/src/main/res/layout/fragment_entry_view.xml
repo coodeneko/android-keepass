@@ -1,20 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.joelkreutzwieser.apps.keepass.EntryViewFragment">
 
-    <LinearLayout
-        android:id="@+id/main_layout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/propertyList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:clickable="true"
-        android:background="@android:color/holo_blue_dark">
-        <Button
-            android:id="@+id/queen_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="64dip"
-            android:text="Queen"/>
-    </LinearLayout>
+        android:layout_height="match_parent" />
+
 </FrameLayout>

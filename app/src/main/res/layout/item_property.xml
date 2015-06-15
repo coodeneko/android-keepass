@@ -24,16 +24,6 @@
         android:textColor="#000000"
         android:textSize="14sp" />
 
-    <ImageView
-        android:id="@+id/propertyCopy"
-        android:layout_width="72dp"
-        android:layout_height="match_parent"
-        android:contentDescription="Yo"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_content_copy_black_24dp" />
-
     <TextView
         android:id="@+id/propertyEntry"
         android:layout_width="match_parent"
@@ -46,6 +36,16 @@
         android:text="More!"
         android:textColor="#000000"
         android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/propertyCopy"
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:contentDescription="Yo"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_content_copy_black_24dp" />
 
 
 </RelativeLayout>
