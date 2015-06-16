@@ -26,6 +26,8 @@ public class EntryViewActivity extends AppCompatActivity {
 
         Entry entry = ((ApplicationBase)getApplication()).getDatabaseRoot().getEntryByUUID(UUID);
 
+        setTitle(entry.getTitle());
+
         EntryViewFragment propertyListFragment = (EntryViewFragment)getSupportFragmentManager().findFragmentById(R.id.propertyList);
         propertyListFragment.setActiveEntry(entry);
     }
