@@ -37,4 +37,6 @@ dependencies {
     compile 'com.madgag.spongycastle:pkix:1.51.0.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:appcompat-v7:22.2.0'
+    compile files('lib/dropbox-android-sdk-1.6.3.jar')
+    compile files('lib/json_simple-1.1.jar')
 }

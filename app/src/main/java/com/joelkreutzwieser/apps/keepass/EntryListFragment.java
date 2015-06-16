@@ -71,7 +71,6 @@ public class EntryListFragment extends Fragment {
 
     public void clickItem(View view) {
         int selectedItemPosition = recyclerView.getChildLayoutPosition(view);
-        System.out.println(selectedItemPosition);
         Entry entry = entries.get(selectedItemPosition);
         Intent intent = new Intent(getActivity(), EntryViewActivity.class);
         intent.putExtra("UUID", entry.getUuid());

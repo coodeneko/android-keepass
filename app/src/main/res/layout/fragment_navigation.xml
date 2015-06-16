@@ -22,7 +22,7 @@
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:paddingTop="8dp"
-            android:text="KeePass"
+            android:text="@string/app_name"
             android:textSize="14sp" />
 
         <TextView
@@ -46,6 +46,7 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="DownArrow"
             android:padding="16dp"
+            android:visibility="invisible"
             android:src="@drawable/ic_arrow_drop_down_black_24dp" />
     </RelativeLayout>
 
