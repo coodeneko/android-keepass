@@ -17,4 +17,6 @@
     <string name="propertyEntry">Entry Data</string>
     <string name="propertyTitle">Property Title</string>
     <string name="propertyIcon">Property Icon</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

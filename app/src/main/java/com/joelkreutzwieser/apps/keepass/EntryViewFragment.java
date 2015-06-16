@@ -2,7 +2,7 @@ package com.joelkreutzwieser.apps.keepass;
 
 
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +25,7 @@ public class EntryViewFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     Entry activeEntry;
+    List<Property> properties;
 
 
     public EntryViewFragment() {
@@ -44,12 +45,17 @@ public class EntryViewFragment extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Property> properties = activeEntry.getProperties();
-        adapter = new EntryViewPropertyAdapter(properties);
+        //properties = activeEntry.getProperties();
+        adapter = new EntryViewPropertyAdapter(null);
         recyclerView.setAdapter(adapter);
 
         return layout;
     }
 
-
+    public void setActiveEntry(Entry entry){
+        activeEntry = entry;
+        properties = activeEntry.getProperties();
+        adapter = new EntryViewPropertyAdapter(properties);
+        recyclerView.swapAdapter(adapter, false);
+    }
 }

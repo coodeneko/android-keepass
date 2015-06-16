@@ -19,6 +19,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     private Toolbar toolbar;
     private NavigationDrawerFragment drawerFragment;
     private KeePassDrawerLayout drawerLayout;
+    private EntryListFragment entryListFragment;
 
     private Button mQueen;
     private Button mHidden;
@@ -34,6 +35,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         setSupportActionBar(toolbar);
         drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         drawerLayout = (KeePassDrawerLayout) findViewById(R.id.drawer_layout);
+        entryListFragment = (EntryListFragment) getSupportFragmentManager().findFragmentById(R.id.entryList);
         drawerFragment.setUp(R.id.navigation_drawer, drawerLayout, toolbar);
     }
 
@@ -67,17 +69,21 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         drawerFragment.clickItem(view);
     }
 
+    public void clickEntry(View view) {
+        entryListFragment.clickItem(view);
+    }
+
     public void onNavigationItemSelected(Group item) {
         Toast toast = Toast.makeText(getApplicationContext(), item.getName(), Toast.LENGTH_SHORT);
         toast.show();
         setTitle(item.getName());
-        EntryListFragment entryListFragment = (EntryListFragment)getSupportFragmentManager().findFragmentById(R.id.entryList);
+        EntryListFragment entryListFragment = (EntryListFragment) getSupportFragmentManager().findFragmentById(R.id.entryList);
         entryListFragment.changeEntries(item);
     }
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawers();
         } else {
             super.onBackPressed();

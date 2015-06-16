@@ -1,6 +1,7 @@
 package com.joelkreutzwieser.apps.keepass;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class EntryListFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     Group activeGroup;
+    List<Entry> entries;
 
     public EntryListFragment() {
         // Required empty public constructor
@@ -49,7 +51,7 @@ public class EntryListFragment extends Fragment {
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         }
 
-        List<Entry> entries = activeGroup.getAllEntries();
+        entries = activeGroup.getAllEntries();
         adapter = new EntryListEntryAdapter(entries);
         recyclerView.setAdapter(adapter);
 
@@ -62,8 +64,17 @@ public class EntryListFragment extends Fragment {
             ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
             activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
         }
-        List<Entry> entries = activeGroup.getAllEntries();
+        entries = activeGroup.getAllEntries();
         adapter = new EntryListEntryAdapter(entries);
         recyclerView.swapAdapter(adapter, false);
+    }
+
+    public void clickItem(View view) {
+        int selectedItemPosition = recyclerView.getChildLayoutPosition(view);
+        System.out.println(selectedItemPosition);
+        Entry entry = entries.get(selectedItemPosition);
+        Intent intent = new Intent(getActivity(), EntryViewActivity.class);
+        intent.putExtra("UUID", entry.getUuid());
+        startActivity(intent);
     }
 }

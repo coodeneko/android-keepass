@@ -2,6 +2,8 @@ package com.joelkreutzwieser.apps.keepass;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +41,7 @@ public class EntryViewPropertyAdapter extends RecyclerView.Adapter<EntryViewProp
                                                                   int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_entry, parent, false);
+                .inflate(R.layout.item_property, parent, false);
         return new ViewHolder(view);
     }
 
@@ -49,7 +51,7 @@ public class EntryViewPropertyAdapter extends RecyclerView.Adapter<EntryViewProp
         holder.propertyTitle.setText(propertyList.get(position).getKey());
         holder.propertyEntry.setText(propertyList.get(position).getValue());
         if(propertyList.get(position).isProtected()) {
-            holder.propertyEntry.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            holder.propertyEntry.setTransformationMethod(PasswordTransformationMethod.getInstance());
         }
     }
 
