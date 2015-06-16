@@ -1,6 +1,7 @@
 package com.joelkreutzwieser.apps.keepass;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +13,24 @@ import java.util.List;
 
 public class EntryViewPropertyAdapter extends RecyclerView.Adapter<EntryViewPropertyAdapter.ViewHolder> {
 
-    private List<Property> mDataset;
+    private List<Property> propertyList;
 
     // Provide a reference to the views for each data item_entry
     // Complex data items may need more than one view per item_entry, and
     // you provide access to all the views for a data item_entry in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item_entry is just a string in this case
-        public TextView mTextView;
+        public TextView propertyTitle;
+        public TextView propertyEntry;
 
         public ViewHolder(View v) {
             super(v);
-            mTextView = (TextView) v.findViewById(R.id.entryTitle);
+            this.propertyTitle = (TextView) v.findViewById(R.id.propertyTitle);
+            this.propertyEntry = (TextView) v.findViewById(R.id.propertyEntry);
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public EntryViewPropertyAdapter(List<Property> myDataset) {
-        mDataset = myDataset;
+    public EntryViewPropertyAdapter(List<Property> propertyList) {
+        this.propertyList = propertyList;
     }
 
     // Create new views (invoked by the layout manager)
@@ -39,21 +40,22 @@ public class EntryViewPropertyAdapter extends RecyclerView.Adapter<EntryViewProp
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_entry, parent, false);
-        // set the view's size, margins, paddings and layout parameters
         return new ViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).getKey());
+        holder.propertyTitle.setText(propertyList.get(position).getKey());
+        holder.propertyEntry.setText(propertyList.get(position).getValue());
+        if(propertyList.get(position).isProtected()) {
+            holder.propertyEntry.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    // Return the size of your data (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return propertyList.size();
     }
 }

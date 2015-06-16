@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_search">Search for Entry</string>
+    <string name="action_settings">Settings</string>
+    <string name="navigate">Navigate</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="propertyCopy">Copy to Clipboard</string>
+    <string name="propertyEntry">Entry Data</string>
+    <string name="propertyIcon">Property Icon</string>
+    <string name="propertyTitle">Property Title</string>
+    <string name="title_activity_entry_view">Entry View</string>
+    <string name="title_activity_group_view">Group View</string>
+    <string name="title_activity_search">Search</string>
+</resources>

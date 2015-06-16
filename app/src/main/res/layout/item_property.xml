@@ -7,7 +7,7 @@
         android:id="@+id/propertyIcon"
         android:layout_width="72dp"
         android:layout_height="match_parent"
-        android:contentDescription="Yo"
+        android:contentDescription="@string/propertyIcon"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:src="@drawable/ic_lock_outline_black_24dp" />
@@ -20,7 +20,7 @@
         android:paddingEnd="72dp"
         android:paddingStart="72dp"
         android:paddingTop="16dp"
-        android:text="Hi!"
+        android:text="@string/propertyTitle"
         android:textColor="#000000"
         android:textSize="14sp" />
 
@@ -33,15 +33,16 @@
         android:paddingEnd="16dp"
         android:paddingStart="72dp"
         android:paddingTop="0dp"
-        android:text="More!"
+        android:text="@string/propertyEntry"
         android:textColor="#000000"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:inputType="textPassword"/>
 
     <ImageView
         android:id="@+id/propertyCopy"
         android:layout_width="72dp"
         android:layout_height="match_parent"
-        android:contentDescription="Yo"
+        android:contentDescription="@string/propertyCopy"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:layout_alignParentEnd="true"

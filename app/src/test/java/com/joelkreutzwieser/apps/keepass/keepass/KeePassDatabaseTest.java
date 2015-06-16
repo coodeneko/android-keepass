@@ -1,7 +1,6 @@
 package com.joelkreutzwieser.apps.keepass.keepass;
 
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.SHA256;
-import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
 
 import org.junit.Test;

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KeePass</string>
+    <string name="app_name" translatable="false">KeePass</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,12 +8,13 @@
 
     <string name="title_activity_entry_view">Entry View</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_group_view">Group View</string>
     <string name="action_search">Search for Entry</string>
     <string name="title_activity_search">Search</string>
     <string name="navigate">Navigate</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="propertyCopy">Copy to Clipboard</string>
+    <string name="propertyEntry">Entry Data</string>
+    <string name="propertyTitle">Property Title</string>
+    <string name="propertyIcon">Property Icon</string>
 </resources>
