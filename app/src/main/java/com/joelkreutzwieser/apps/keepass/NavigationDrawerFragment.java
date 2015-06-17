@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
@@ -58,12 +59,18 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void manageNavigationFragment() {
-        isNavigationGroup = true;
-
         FragmentManager fragmentManager = getChildFragmentManager();
 
+        if(((ApplicationBase) getActivity().getApplication()).isDatabaseOpen()) {
+            navigationGroup = new NavigationGroupSubFragment();
+            isNavigationGroup = true;
+        } else {
+            navigationGroup = new NavigationDataBaseSubFragment();
+            isNavigationGroup = false;
+        }
+
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        navigationGroup = new NavigationGroupSubFragment();
+
         fragmentTransaction.add(R.id.navigationFragment, navigationGroup);
         fragmentTransaction.addToBackStack("A");
         fragmentTransaction.commit();
@@ -103,7 +110,7 @@ public class NavigationDrawerFragment extends Fragment {
 
             }
         };
-        if (!userLearnedDrawer && !fromSavedInstanceState) {
+        if ((!userLearnedDrawer && !fromSavedInstanceState) || !((ApplicationBase) getActivity().getApplication()).isDatabaseOpen()) {
             drawerLayout.openDrawer(this.containerView);
         }
         this.drawerLayout.setDrawerListener(this.drawerToggle);
@@ -136,7 +143,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void clickNavigationArrow(View view) {
 
         ImageView downArrow = (ImageView) getActivity().findViewById(R.id.navigationHeaderDownArrow);
-        if (isNavigationGroup) {
+        if (isNavigationGroup || !((ApplicationBase) getActivity().getApplication()).isDatabaseOpen()) {
             downArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             navigationGroup = new NavigationDataBaseSubFragment();
             isNavigationGroup = false;
@@ -151,6 +158,13 @@ public class NavigationDrawerFragment extends Fragment {
         fragmentTransaction.replace(R.id.navigationFragment, navigationGroup);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    public void clickNavigationLoad(View view) {
+        ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
+        sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
+        Toast.makeText(getActivity(),  ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot().getName(), Toast.LENGTH_SHORT).show();
+        drawerLayout.closeDrawers();
     }
 
     @Override

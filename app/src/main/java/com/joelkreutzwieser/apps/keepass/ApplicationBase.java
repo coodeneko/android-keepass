@@ -19,6 +19,10 @@ public class ApplicationBase extends Application {
         return null;
     }
 
+    public boolean isDatabaseOpen() {
+        return (database != null);
+    }
+
     public void openDatabase(InputStream inputStream, String password) {
         database = KeePassDatabase.getInstance(inputStream).openDatabase(password);
     }

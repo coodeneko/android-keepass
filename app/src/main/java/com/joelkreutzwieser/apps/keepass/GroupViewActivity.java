@@ -75,7 +75,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     }
 
     public void clickTestDatabase(View view) {
-        Toast.makeText(this, "Test Database load", Toast.LENGTH_SHORT).show();
+        drawerFragment.clickNavigationLoad(view);
     }
 
     public void clickEntry(View view) {

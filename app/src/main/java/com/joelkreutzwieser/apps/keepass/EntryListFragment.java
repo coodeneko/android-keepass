@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,27 +45,17 @@ public class EntryListFragment extends Fragment {
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        entries = new ArrayList<>();
 
-        activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
-        if (activeGroup == null) {
-            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
-            activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
-        }
-
-        entries = activeGroup.getAllEntries();
-        adapter = new EntryListEntryAdapter(entries);
-        recyclerView.setAdapter(adapter);
+        changeEntries(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
 
         return layout;
     }
 
     public void changeEntries(Group group){
         activeGroup = group;
-        if (activeGroup == null) {
-            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
-            activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
-        }
-        entries = activeGroup.getAllEntries();
+        if(activeGroup != null) {
+        entries = activeGroup.getAllEntries();}
         adapter = new EntryListEntryAdapter(entries);
         recyclerView.swapAdapter(adapter, false);
     }

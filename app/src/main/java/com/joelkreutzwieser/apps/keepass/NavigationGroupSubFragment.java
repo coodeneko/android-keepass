@@ -43,14 +43,11 @@ public class NavigationGroupSubFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         Group activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
-        if (activeGroup == null) {
-            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
-            activeGroup = ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot();
-        }
-
         groups = new ArrayList<>();
-        groups.add(activeGroup);
-        groups.addAll(activeGroup.getAllGroups());
+        if(activeGroup != null) {
+            groups.add(activeGroup);
+            groups.addAll(activeGroup.getAllGroups());
+        }
         adapter = new NavigationGroupAdapter(groups);
         recyclerView.setAdapter(adapter);
 
