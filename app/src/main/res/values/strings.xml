@@ -22,4 +22,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="newDatabase">Add New Database</string>
     <string name="password">Master Password</string>
+    <string name="openedDatabase">Database Opened</string>
+    <string name="failedToOpenDatabase">Database Failed to Decrypt</string>
 </resources>

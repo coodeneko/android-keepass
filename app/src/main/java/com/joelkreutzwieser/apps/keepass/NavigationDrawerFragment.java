@@ -173,10 +173,10 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
         try {
             ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), password.getText().toString());
             sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
-            Toast.makeText(getActivity(), ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot().getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.openedDatabase, Toast.LENGTH_SHORT).show();
             drawerLayout.closeDrawers();
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Failed to Decrypt", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.failedToOpenDatabase, Toast.LENGTH_LONG).show();
         }
     }
 
