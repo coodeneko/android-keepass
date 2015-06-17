@@ -52,7 +52,7 @@ public class EntryViewFragment extends Fragment {
         return layout;
     }
 
-    public void setActiveEntry(Entry entry){
+    public void setActiveEntry(Entry entry) {
         activeEntry = entry;
         properties = activeEntry.getProperties();
         adapter = new EntryViewPropertyAdapter(properties);

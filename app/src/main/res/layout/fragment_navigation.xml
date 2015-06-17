@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/navigationHeaderImageHeight"
         android:background="@drawable/ic_lock_outline_black_24dp"
+        android:onClick="clickNavigationArrow"
         android:orientation="vertical">
 
         <TextView
@@ -46,7 +47,6 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="DownArrow"
             android:padding="16dp"
-            android:onClick="clickNavigationArrow"
             android:src="@drawable/ic_arrow_drop_down_black_24dp" />
     </RelativeLayout>
 
@@ -62,8 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/navigationSpace"
-        android:paddingBottom="56dp"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        android:paddingBottom="56dp" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/item"

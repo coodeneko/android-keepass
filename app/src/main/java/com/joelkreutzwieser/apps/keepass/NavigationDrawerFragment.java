@@ -128,7 +128,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void clickItem(View view) {
-        Group item = ((NavigationGroupSubFragment)navigationGroup).getChildLayoutPosition(view);
+        Group item = ((NavigationGroupSubFragment) navigationGroup).getChildLayoutPosition(view);
         sendToActivity.onNavigationItemSelected(item);
         drawerLayout.closeDrawers();
     }
@@ -136,12 +136,11 @@ public class NavigationDrawerFragment extends Fragment {
     public void clickNavigationArrow(View view) {
 
         ImageView downArrow = (ImageView) getActivity().findViewById(R.id.navigationHeaderDownArrow);
-        if(isNavigationGroup) {
+        if (isNavigationGroup) {
             downArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
             navigationGroup = new NavigationDataBaseSubFragment();
             isNavigationGroup = false;
-        }
-        else {
+        } else {
             downArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
             navigationGroup = new NavigationGroupSubFragment();
             isNavigationGroup = true;
@@ -157,6 +156,6 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        sendToActivity = (OnNavigationItemSelectedListener)activity;
+        sendToActivity = (OnNavigationItemSelectedListener) activity;
     }
 }
