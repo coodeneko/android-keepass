@@ -47,6 +47,7 @@
             android:contentDescription="DownArrow"
             android:padding="16dp"
             android:visibility="invisible"
+            android:onClick="clickNavigationArrow"
             android:src="@drawable/ic_arrow_drop_down_black_24dp" />
     </RelativeLayout>
 
@@ -56,14 +57,6 @@
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:layout_below="@+id/navigationHeaderImage" />
-
-    <!--<android.support.v7.widget.RecyclerView
-        android:id="@+id/navigationGroupList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/navigationSpace"
-        android:paddingBottom="56dp"
-        android:scrollbars="vertical" />-->
 
     <LinearLayout
         android:id="@+id/navigationFragment"

@@ -69,6 +69,10 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         drawerFragment.clickItem(view);
     }
 
+    public void clickNavigationArrow(View view) {
+        
+    }
+
     public void clickEntry(View view) {
         entryListFragment.clickItem(view);
     }
