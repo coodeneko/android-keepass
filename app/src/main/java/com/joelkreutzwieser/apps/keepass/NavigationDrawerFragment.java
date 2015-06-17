@@ -176,7 +176,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
             Toast.makeText(getActivity(), ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot().getName(), Toast.LENGTH_SHORT).show();
             drawerLayout.closeDrawers();
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Failed to Decrpyt", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Failed to Decrypt", Toast.LENGTH_LONG).show();
         }
     }
 
