@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationGroup extends Fragment {
+public class NavigationGroupSubFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -26,7 +26,7 @@ public class NavigationGroup extends Fragment {
 
     List<Group> groups;
 
-    public NavigationGroup() {
+    public NavigationGroupSubFragment() {
         // Required empty public constructor
     }
 

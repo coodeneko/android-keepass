@@ -14,10 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
-
-import java.util.List;
 
 
 /**
@@ -27,7 +26,6 @@ public class NavigationDrawerFragment extends Fragment {
 
     public static final String PREFERENCE_FILE_NAME = "com.joelkreutzwieser.app.keepass.NAVIGATION_PREFERENCE";
     public static final String KEY_USER_LEARNED_DRAWER = "user_learned_drawer";
-    public static final String KEY_FROM_SAVED_INSTANCE = "from_saved_instance";
 
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
@@ -36,8 +34,8 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean userLearnedDrawer;
     private boolean fromSavedInstanceState;
 
-    List<Group> groups;
-    NavigationGroup navigationGroup;
+    private boolean isNavigationGroup;
+    private Fragment navigationGroup;
 
     OnNavigationItemSelectedListener sendToActivity;
 
@@ -60,10 +58,12 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     private void manageNavigationFragment() {
+        isNavigationGroup = true;
+
         FragmentManager fragmentManager = getChildFragmentManager();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        navigationGroup = new NavigationGroup();
+        navigationGroup = new NavigationGroupSubFragment();
         fragmentTransaction.add(R.id.navigationFragment, navigationGroup);
         fragmentTransaction.addToBackStack("A");
         fragmentTransaction.commit();
@@ -128,9 +128,30 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void clickItem(View view) {
-        Group item = navigationGroup.getChildLayoutPosition(view);
+        Group item = ((NavigationGroupSubFragment)navigationGroup).getChildLayoutPosition(view);
         sendToActivity.onNavigationItemSelected(item);
         drawerLayout.closeDrawers();
+    }
+
+    public void clickNavigationArrow(View view) {
+
+        ImageView downArrow = (ImageView) getActivity().findViewById(R.id.navigationHeaderDownArrow);
+        if(isNavigationGroup) {
+            downArrow.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
+            navigationGroup = new NavigationDataBaseSubFragment();
+            isNavigationGroup = false;
+        }
+        else {
+            downArrow.setImageResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            navigationGroup = new NavigationGroupSubFragment();
+            isNavigationGroup = true;
+        }
+
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.navigationFragment, navigationGroup);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     @Override

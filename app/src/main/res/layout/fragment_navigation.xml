@@ -46,7 +46,6 @@
             android:layout_alignParentEnd="true"
             android:contentDescription="DownArrow"
             android:padding="16dp"
-            android:visibility="invisible"
             android:onClick="clickNavigationArrow"
             android:src="@drawable/ic_arrow_drop_down_black_24dp" />
     </RelativeLayout>

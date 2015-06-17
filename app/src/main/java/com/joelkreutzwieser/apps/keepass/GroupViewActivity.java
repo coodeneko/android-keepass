@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
@@ -20,11 +19,6 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     private NavigationDrawerFragment drawerFragment;
     private KeePassDrawerLayout drawerLayout;
     private EntryListFragment entryListFragment;
-
-    private Button mQueen;
-    private Button mHidden;
-    private KeePassDrawerLayout mOuterLayout;
-    private LinearLayout mMainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +64,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     }
 
     public void clickNavigationArrow(View view) {
-        
+        drawerFragment.clickNavigationArrow(view);
     }
 
     public void clickEntry(View view) {
