@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -168,10 +169,15 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
-        ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
-        sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
-        Toast.makeText(getActivity(),  ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot().getName(), Toast.LENGTH_SHORT).show();
-        drawerLayout.closeDrawers();
+        EditText password = (EditText) dialog.getDialog().findViewById(R.id.password);
+        try {
+            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), password.getText().toString());
+            sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
+            Toast.makeText(getActivity(), ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot().getName(), Toast.LENGTH_SHORT).show();
+            drawerLayout.closeDrawers();
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Failed to Decrpyt", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
