@@ -16,7 +16,7 @@ import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 public class GroupViewActivity extends AppCompatActivity implements NavigationDrawerFragment.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private Toolbar toolbar;
-    private NavigationDrawerFragment drawerFragment;
+    public NavigationDrawerFragment drawerFragment;
     private KeePassDrawerLayout drawerLayout;
     private EntryListFragment entryListFragment;
 

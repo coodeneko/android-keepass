@@ -2,6 +2,7 @@ package com.joelkreutzwieser.apps.keepass;
 
 
 import android.app.Activity;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,7 +24,7 @@ import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements DatabaseCredentialsDialogFragment.NoticeDialogListener {
 
     public static final String PREFERENCE_FILE_NAME = "com.joelkreutzwieser.app.keepass.NAVIGATION_PREFERENCE";
     public static final String KEY_USER_LEARNED_DRAWER = "user_learned_drawer";
@@ -161,10 +162,20 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void clickNavigationLoad(View view) {
+        DatabaseCredentialsDialogFragment dialogFragment = new DatabaseCredentialsDialogFragment();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "DBLOAD");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
         ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), "abcdefg");
         sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
         Toast.makeText(getActivity(),  ((ApplicationBase) getActivity().getApplication()).getDatabaseRoot().getName(), Toast.LENGTH_SHORT).show();
         drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
     }
 
     @Override
