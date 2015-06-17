@@ -2,13 +2,14 @@ package com.joelkreutzwieser.apps.keepass;
 
 
 import android.app.Activity;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -17,7 +18,6 @@ import android.view.ViewGroup;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,6 +42,7 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean fromSavedInstanceState;
 
     List<Group> groups;
+    NavigationGroup navigationGroup;
 
     OnNavigationItemSelectedListener sendToActivity;
 
@@ -60,6 +61,17 @@ public class NavigationDrawerFragment extends Fragment {
         if (savedInstanceState != null) {
             fromSavedInstanceState = true;
         }
+        manageNavigationFragment();
+    }
+
+    private void manageNavigationFragment() {
+        FragmentManager fragmentManager = getChildFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        navigationGroup = new NavigationGroup();
+        fragmentTransaction.add(R.id.navigationFragment, navigationGroup);
+        fragmentTransaction.addToBackStack("A");
+        fragmentTransaction.commit();
     }
 
     @Override
@@ -67,7 +79,7 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_navigation, container, false);
-        recyclerView = (RecyclerView) layout.findViewById(R.id.navigationGroupList);
+        /*recyclerView = (RecyclerView) layout.findViewById(R.id.navigationGroupList);
 
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(getActivity());
@@ -83,7 +95,7 @@ public class NavigationDrawerFragment extends Fragment {
         groups.add(activeGroup);
         groups.addAll(activeGroup.getAllGroups());
         adapter = new NavigationGroupAdapter(groups);
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);*/
 
         return layout;
     }
@@ -140,8 +152,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     public void clickItem(View view) {
-        int selectedItemPosition = recyclerView.getChildLayoutPosition(view);
-        Group item = groups.get(selectedItemPosition);
+        Group item = navigationGroup.getChildLayoutPosition(view);
         sendToActivity.onNavigationItemSelected(item);
         drawerLayout.closeDrawers();
     }
