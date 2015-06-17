@@ -1,13 +1,66 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.joelkreutzwieser.apps.keepass.NavigationDataBaseSubFragment">
+    tools:context="com.joelkreutzwieser.apps.keepass.NavigationDataBaseSubFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/addNew"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="48dp"
+        android:onClick="clickNewDatabase">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/addNewImage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:src="@drawable/ic_database_plus_black_24dp" />
+
+        <TextView
+            android:id="@+id/addNewText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="start|center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:text="@string/newDatabase"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/testDatabase"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:onClick="clickTestDatabase">
+
+        <ImageView
+            android:id="@+id/testDatabaseImage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:src="@drawable/ic_database_black_24dp" />
+
+        <TextView
+            android:id="@+id/testDatabaseText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="start|center"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:text="Test Database"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

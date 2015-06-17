@@ -59,12 +59,23 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         return super.onOptionsItemSelected(item);
     }
 
+    public void clickNavigationDrawer(View view) {
+    }
+
     public void clickItem(View view) {
         drawerFragment.clickItem(view);
     }
 
     public void clickNavigationArrow(View view) {
         drawerFragment.clickNavigationArrow(view);
+    }
+
+    public void clickNewDatabase(View view) {
+        Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
+    }
+
+    public void clickTestDatabase(View view) {
+        Toast.makeText(this, "Test Database load", Toast.LENGTH_SHORT).show();
     }
 
     public void clickEntry(View view) {

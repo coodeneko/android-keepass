@@ -24,7 +24,7 @@ public class NavigationGroupAdapter extends RecyclerView.Adapter<NavigationGroup
         public TextView mTextView;
         public ViewHolder(View v) {
             super(v);
-            mHolder = (LinearLayout)v.findViewById(R.id.item);
+            mHolder = (LinearLayout)v.findViewById(R.id.itemSettings);
             mTextView = (TextView)v.findViewById(R.id.textView);
         }
     }

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/ColorNavigation"
-    tools:context="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment">
+    tools:context="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment"
+    android:onClick="clickNavigationDrawer">
 
     <RelativeLayout
         android:id="@+id/navigationHeaderImage"
@@ -63,10 +64,16 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/navigationSpace"
         android:orientation="horizontal"
-        android:paddingBottom="56dp" />
+        android:paddingBottom="49dp" />
+
+    <View
+        android:layout_above="@+id/itemSettings"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/ColorNavigationBar" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/item"
+        android:id="@+id/itemSettings"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true">
