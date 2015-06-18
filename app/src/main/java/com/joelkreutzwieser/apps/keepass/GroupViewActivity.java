@@ -75,6 +75,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
 
     public void clickNewDatabase(View view) {
         Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, DropboxFileActivity.class));
     }
 
     public void clickTestDatabase(View view) {

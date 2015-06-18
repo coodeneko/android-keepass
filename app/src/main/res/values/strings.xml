@@ -25,4 +25,7 @@
     <string name="openedDatabase">Database Opened</string>
     <string name="failedToOpenDatabase">Database Failed to Decrypt</string>
     <string name="keeFileName">Key File (Disabled)</string>
+    <string name="title_activity_dropbox_file">DropboxFileActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
