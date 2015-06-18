@@ -3,10 +3,16 @@ package com.joelkreutzwieser.apps.keepass;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 public class DatabaseCredentialsDialogFragment extends DialogFragment {
 
@@ -50,5 +56,21 @@ public class DatabaseCredentialsDialogFragment extends DialogFragment {
                 });
         // Create the AlertDialog object and return it
         return builder.create();
+    }
+
+    public void clickPasswordVisibility(View view) {
+        EditText password = (EditText)getDialog().findViewById(R.id.password);
+        ImageView passwordVisibility = (ImageView)getDialog().findViewById(R.id.passwordVisibility);
+        Typeface typeface = password.getTypeface();
+        int cursorPosition = password.getSelectionStart();
+        if(password.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
+            password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            passwordVisibility.setImageResource(R.drawable.ic_eye_off_black_24dp);
+        } else {
+            password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            passwordVisibility.setImageResource(R.drawable.ic_eye_black_24dp);
+        }
+        password.setTypeface(typeface);
+        password.setSelection(cursorPosition);
     }
 }

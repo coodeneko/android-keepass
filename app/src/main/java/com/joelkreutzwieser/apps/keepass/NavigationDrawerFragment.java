@@ -39,8 +39,13 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
 
     private boolean isNavigationGroup;
     private Fragment navigationGroup;
+    private DatabaseCredentialsDialogFragment dialogFragment;
 
     OnNavigationItemSelectedListener sendToActivity;
+
+    public void clickPasswordVisibility(View view) {
+        dialogFragment.clickPasswordVisibility(view);
+    }
 
     public interface OnNavigationItemSelectedListener {
         void onNavigationItemSelected(Group item);
@@ -163,7 +168,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     }
 
     public void clickNavigationLoad(View view) {
-        DatabaseCredentialsDialogFragment dialogFragment = new DatabaseCredentialsDialogFragment();
+        dialogFragment = new DatabaseCredentialsDialogFragment();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "DBLOAD");
     }
 

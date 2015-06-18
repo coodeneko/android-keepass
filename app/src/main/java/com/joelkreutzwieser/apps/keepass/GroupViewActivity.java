@@ -5,10 +5,13 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
@@ -104,5 +107,9 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         Button b = (Button) v;
         Toast t = Toast.makeText(this, b.getText() + " clicked", Toast.LENGTH_SHORT);
         t.show();
+    }
+
+    public void clickPasswordVisibility(View view) {
+        drawerFragment.clickPasswordVisibility(view);
     }
 }

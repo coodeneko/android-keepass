@@ -24,4 +24,5 @@
     <string name="password">Master Password</string>
     <string name="openedDatabase">Database Opened</string>
     <string name="failedToOpenDatabase">Database Failed to Decrypt</string>
+    <string name="keeFileName">Key File (Disabled)</string>
 </resources>
