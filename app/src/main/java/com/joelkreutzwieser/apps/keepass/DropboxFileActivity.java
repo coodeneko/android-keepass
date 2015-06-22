@@ -4,39 +4,36 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.session.AppKeyPair;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class DropboxFileActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     final static private String APP_KEY = "XXXX";
     final static private String APP_SECRET = "XXXXX";
 
-    private LinearLayout container;
+    private List<DropboxAPI.Entry> files;
 
     private DropboxAPI<AndroidAuthSession> mDBApi;
-
-    private final Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            ArrayList<String> result = msg.getData().getStringArrayList("data");
-            for (String fileName : result) {
-                Log.i("ListFiles", fileName);
-                TextView tv = new TextView(DropboxFileActivity.this);
-                tv.setText(fileName);
-                //container.addView(tv);
-            }
-        }
-    };
 
     @Override
     protected void onResume() {
@@ -51,7 +48,12 @@ public class DropboxFileActivity extends AppCompatActivity {
             } catch (IllegalStateException e) {
                 Log.i("DbAuthLog", "Error authenticating", e);
             }
-            ListDropboxFiles list = new ListDropboxFiles(mDBApi, "/", null);
+            try {
+                ListDropboxFiles list = new ListDropboxFiles(mDBApi, "/", recyclerView, adapter);
+                files = list.execute().get();
+            } catch (Exception e) {
+                Log.i("DbFileLog", "Error getting files", e);
+            }
         }
     }
 
@@ -63,6 +65,16 @@ public class DropboxFileActivity extends AppCompatActivity {
         AndroidAuthSession session = new AndroidAuthSession(appKeys);
         mDBApi = new DropboxAPI<>(session);
         mDBApi.getSession().startOAuth2Authentication(DropboxFileActivity.this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.fileList);
+
+        // use a linear layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //properties = activeEntry.getProperties();
+        adapter = new DropboxFileAdapter(new ArrayList<DropboxAPI.Entry>());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -85,5 +97,18 @@ public class DropboxFileActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickFile(View view) {
+        int selectedItemPosition = recyclerView.getChildLayoutPosition(view);
+        DropboxAPI.Entry file = files.get(selectedItemPosition);
+        if(file.isDir) {
+            try {
+                ListDropboxFiles list = new ListDropboxFiles(mDBApi, file.parentPath() + file.fileName(), recyclerView, adapter);
+                files = list.execute().get();
+            } catch (Exception e) {
+                Log.i("DbFileLog", "Error getting files", e);
+            }
+        }
     }
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fileItem"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:onClick="clickFile">
+
+    <ImageView
+        android:id="@+id/fileImage"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:padding="16dp"
+        android:src="@drawable/ic_lock_outline_black_24dp" />
+
+    <TextView
+        android:id="@+id/fileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:paddingEnd="16dp"
+        android:paddingStart="72dp"
+        android:paddingTop="16dp"
+        android:text="File Name"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/fileType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fileName"
+        android:fontFamily="sans-serif"
+        android:paddingEnd="16dp"
+        android:paddingStart="72dp"
+        android:paddingTop="8dp"
+        android:text="File Type"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+</RelativeLayout>
