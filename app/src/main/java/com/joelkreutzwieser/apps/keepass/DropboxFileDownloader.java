@@ -6,10 +6,13 @@ import android.support.v7.widget.RecyclerView;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.exception.DropboxException;
+import com.joelkreutzwieser.apps.keepass.Database.KeePassListDatabase;
+import com.joelkreutzwieser.apps.keepass.Database.KeePassListEntry;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
@@ -35,6 +38,17 @@ public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
         try {
             FileOutputStream outputStream = new FileOutputStream(localFile);
             DropboxAPI.DropboxFileInfo file = dropbox.getFile(path, null, outputStream, null);
+            KeePassListDatabase database = new KeePassListDatabase(context);
+            database.open();
+            KeePassListEntry entry = new KeePassListEntry();
+            entry.localFileName = localFile.getName();
+            entry.origin = "Dropbox";
+            entry.remotePath = path;
+            Date date = new Date();
+            entry.lastUsed = date.getTime();
+            entry.revision = file.getMetadata().rev;
+            database.createEntry(entry);
+            database.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
