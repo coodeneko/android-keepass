@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
+import java.io.InputStream;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +31,8 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
 
     public static final String PREFERENCE_FILE_NAME = "com.joelkreutzwieser.app.keepass.NAVIGATION_PREFERENCE";
     public static final String KEY_USER_LEARNED_DRAWER = "user_learned_drawer";
+
+    private InputStream inputStream;
 
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
@@ -167,7 +171,8 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
         fragmentTransaction.commit();
     }
 
-    public void clickNavigationLoad(View view) {
+    public void clickNavigationLoad(InputStream inputStream) {
+        this.inputStream = inputStream;
         dialogFragment = new DatabaseCredentialsDialogFragment();
         dialogFragment.show(getActivity().getSupportFragmentManager(), "DBLOAD");
     }
@@ -176,7 +181,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     public void onDialogPositiveClick(DialogFragment dialog) {
         EditText password = (EditText) dialog.getDialog().findViewById(R.id.password);
         try {
-            ((ApplicationBase) getActivity().getApplication()).openDatabase(getResources().openRawResource(R.raw.testdatabase), password.getText().toString());
+            ((ApplicationBase) getActivity().getApplication()).openDatabase(this.inputStream, password.getText().toString());
             sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
             Toast.makeText(getActivity(), R.string.openedDatabase, Toast.LENGTH_SHORT).show();
             drawerLayout.closeDrawers();

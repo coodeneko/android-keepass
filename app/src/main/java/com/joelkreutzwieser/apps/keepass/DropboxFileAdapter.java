@@ -51,7 +51,11 @@ public class DropboxFileAdapter extends RecyclerView.Adapter<DropboxFileAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset.get(position).fileName());
+        if(position == 0) {
+            holder.mTextView.setText("../");
+        } else {
+            holder.mTextView.setText(mDataset.get(position).fileName());
+        }
         if(mDataset.get(position).isDir) {
             holder.fileType.setText("Directory");
         } else {

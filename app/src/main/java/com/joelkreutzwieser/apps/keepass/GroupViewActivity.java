@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class GroupViewActivity extends AppCompatActivity implements NavigationDrawerFragment.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -75,11 +80,26 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
 
     public void clickNewDatabase(View view) {
         Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, DropboxFileActivity.class));
+        startActivityForResult(new Intent(this, DropboxFileActivity.class), 52);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(this, "DB copied", Toast.LENGTH_SHORT).show();
+        try {
+            if (requestCode == 52 && resultCode == RESULT_OK && data != null) {
+                File localFile = new File(getApplicationContext().getFilesDir(), data.getStringExtra("fileName"));
+                InputStream inputStream = new FileInputStream(localFile);
+                drawerFragment.clickNavigationLoad(inputStream);
+            }
+        } catch (Exception e) {
+            Log.i("KeePass", "Failed to load file", e);
+        }
     }
 
     public void clickTestDatabase(View view) {
-        drawerFragment.clickNavigationLoad(view);
+        drawerFragment.clickNavigationLoad(getResources().openRawResource(R.raw.testdatabase));
     }
 
     public void clickEntry(View view) {

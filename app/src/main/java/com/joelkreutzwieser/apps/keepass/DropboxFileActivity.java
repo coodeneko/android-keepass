@@ -1,5 +1,6 @@
 package com.joelkreutzwieser.apps.keepass;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.session.AppKeyPair;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -108,6 +111,17 @@ public class DropboxFileActivity extends AppCompatActivity {
                 files = list.execute().get();
             } catch (Exception e) {
                 Log.i("DbFileLog", "Error getting files", e);
+            }
+        } else {
+            try {
+                DropboxFileDownloader downloader = new DropboxFileDownloader(mDBApi, file.path, file.fileName(), getApplicationContext());
+                File localFile = downloader.execute().get();
+                Intent intent = new Intent();
+                intent.putExtra("fileName", localFile.getName());
+                setResult(RESULT_OK, intent);
+                finish();
+            } catch (Exception e) {
+                Log.i("DbFileLog", "Error saving file to disk", e);
             }
         }
     }

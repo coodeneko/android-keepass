@@ -1,9 +1,6 @@
 package com.joelkreutzwieser.apps.keepass;
 
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 
 import com.dropbox.client2.DropboxAPI;
@@ -32,17 +29,15 @@ public class ListDropboxFiles extends AsyncTask<Void, Void, List<Entry>> {
         List<Entry> files = new ArrayList<>();
         try {
             Entry directory = dropbox.metadata(path, 1000, null, true, null);
-            if(!directory.fileName().equals("")) {
-                files.add(dropbox.metadata(directory.parentPath(), 1000, null, true, null));
-            }
+            files.add(dropbox.metadata(directory.parentPath(), 1000, null, true, null));
             for(Entry folder : directory.contents) {
                 if(folder.isDir) {
                     files.add(folder);
                 }
             }
-            for(Entry folder : directory.contents) {
-                if(!folder.isDir) {
-                    files.add(folder);
+            for(Entry file : directory.contents) {
+                if(!file.isDir && file.fileName().contains(".kdbx")) {
+                    files.add(file);
                 }
             }
         } catch (DropboxException e) {
