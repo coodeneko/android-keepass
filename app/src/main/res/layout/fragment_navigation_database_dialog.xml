@@ -18,7 +18,7 @@
             android:gravity="center"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:src="@drawable/ic_database_plus_black_24dp" />
+            android:src="@drawable/ic_database_black_24dp" />
 
         <TextView
             android:id="@+id/addNewText"
@@ -34,7 +34,7 @@
 
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/testDatabase"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -61,6 +61,6 @@
             android:textColor="#000000"
             android:textSize="14sp" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>
