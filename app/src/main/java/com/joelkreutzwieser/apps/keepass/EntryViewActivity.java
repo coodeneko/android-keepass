@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 
 public class EntryViewActivity extends AppCompatActivity {
+
+    private EntryViewFragment propertyListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,7 @@ public class EntryViewActivity extends AppCompatActivity {
 
         setTitle(entry.getTitle());
 
-        EntryViewFragment propertyListFragment = (EntryViewFragment)getSupportFragmentManager().findFragmentById(R.id.propertyList);
+        propertyListFragment = (EntryViewFragment)getSupportFragmentManager().findFragmentById(R.id.propertyListFragment);
         propertyListFragment.setActiveEntry(entry);
     }
 
@@ -52,5 +55,9 @@ public class EntryViewActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void clickCopyProperty(View view) {
+        propertyListFragment.clickCopyProperty(view);
     }
 }

@@ -1,6 +1,9 @@
 package com.joelkreutzwieser.apps.keepass;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Property;
@@ -57,5 +61,14 @@ public class EntryViewFragment extends Fragment {
         properties = activeEntry.getProperties();
         adapter = new EntryViewPropertyAdapter(properties);
         recyclerView.swapAdapter(adapter, false);
+    }
+
+    public void clickCopyProperty(View view) {
+        ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        int selectedPosition = recyclerView.getChildLayoutPosition((View)view.getParent());
+        Property property = properties.get(selectedPosition);
+        ClipData clip = ClipData.newPlainText(property.getKey(), property.getValue());
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getActivity().getApplicationContext(), property.getKey() + " copied to Clipboard", Toast.LENGTH_SHORT).show();
     }
 }
