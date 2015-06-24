@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass.Database;
+package com.joelkreutzwieser.apps.keepass.KeePassList;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

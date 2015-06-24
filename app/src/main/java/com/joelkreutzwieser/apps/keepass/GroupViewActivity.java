@@ -98,8 +98,8 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
         }
     }
 
-    public void clickTestDatabase(View view) {
-        //drawerFragment.clickNavigationLoad(getResources().openRawResource(R.raw.testdatabase));
+    public void clickDatabaseLoad(View view) {
+        drawerFragment.clickDatabaseLoad(view);
     }
 
     public void clickEntry(View view) {

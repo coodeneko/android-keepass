@@ -5,15 +5,12 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
 import com.dropbox.client2.DropboxAPI;
-import com.dropbox.client2.exception.DropboxException;
-import com.joelkreutzwieser.apps.keepass.Database.KeePassListDatabase;
-import com.joelkreutzwieser.apps.keepass.Database.KeePassListEntry;
+import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListDatabase;
+import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
 

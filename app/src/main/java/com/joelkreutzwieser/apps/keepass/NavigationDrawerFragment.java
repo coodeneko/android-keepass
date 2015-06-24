@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 
@@ -43,12 +47,12 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
 
     private boolean isNavigationGroup;
     private Fragment navigationGroup;
-    private DatabaseCredentialsDialogFragment dialogFragment;
+    private Fragment dialogFragment;
 
     OnNavigationItemSelectedListener sendToActivity;
 
     public void clickPasswordVisibility(View view) {
-        dialogFragment.clickPasswordVisibility(view);
+        ((DatabaseCredentialsDialogFragment)dialogFragment).clickPasswordVisibility(view);
     }
 
     public interface OnNavigationItemSelectedListener {
@@ -72,7 +76,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     private void manageNavigationFragment() {
         FragmentManager fragmentManager = getChildFragmentManager();
 
-        if(((ApplicationBase) getActivity().getApplication()).isDatabaseOpen()) {
+        if (((ApplicationBase) getActivity().getApplication()).isDatabaseOpen()) {
             navigationGroup = new NavigationGroupSubFragment();
             isNavigationGroup = true;
         } else {
@@ -171,10 +175,21 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
         fragmentTransaction.commit();
     }
 
+    public void clickDatabaseLoad(View view) {
+        try {
+            KeePassListEntry entry = ((NavigationDataBaseSubFragment)navigationGroup).getEntryByClick(view);
+            File localFile = new File(getActivity().getApplicationContext().getFilesDir(), entry.localFileName);
+            InputStream inputStream = new FileInputStream(localFile);
+            clickNavigationLoad(inputStream);
+        } catch (Exception e) {
+            Log.i("KeePass", "Failed to load file", e);
+        }
+    }
+
     public void clickNavigationLoad(InputStream inputStream) {
         this.inputStream = inputStream;
         dialogFragment = new DatabaseCredentialsDialogFragment();
-        dialogFragment.show(getActivity().getSupportFragmentManager(), "DBLOAD");
+        ((DatabaseCredentialsDialogFragment)dialogFragment).show(getActivity().getSupportFragmentManager(), "DBLOAD");
     }
 
     @Override
