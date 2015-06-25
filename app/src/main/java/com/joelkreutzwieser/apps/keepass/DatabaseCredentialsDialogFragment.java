@@ -16,9 +16,9 @@ import android.widget.ImageView;
 public class DatabaseCredentialsDialogFragment extends DialogFragment {
 
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
+        void onDialogPositiveClick(DialogFragment dialog);
 
-        public void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogNegativeClick(DialogFragment dialog);
     }
 
     NoticeDialogListener mListener;
@@ -29,7 +29,7 @@ public class DatabaseCredentialsDialogFragment extends DialogFragment {
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            mListener = (NoticeDialogListener) ((GroupViewActivity) activity).drawerFragment;
+            mListener = ((GroupViewActivity) activity).drawerFragment;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()

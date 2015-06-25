@@ -1,9 +1,7 @@
 package com.joelkreutzwieser.apps.keepass;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
-import android.text.method.TransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

@@ -13,12 +13,12 @@ public class KeePassListDatabase {
     private SQLiteDatabase database;
     private KeePassListDatabaseHelper keePassListDatabaseHelper;
     private String[] allColumns = {
-            keePassListDatabaseHelper.COLUMN_NAME_ID,
-            keePassListDatabaseHelper.COLUMN_NAME_LOCAL_FILE_NAME,
-            keePassListDatabaseHelper.COLUMN_NAME_ORIGIN,
-            keePassListDatabaseHelper.COLUMN_NAME_REVISION,
-            keePassListDatabaseHelper.COLUMN_NAME_REMOTE_PATH,
-            keePassListDatabaseHelper.COLUMN_NAME_LAST_USED_DATE};
+            KeePassListDatabaseHelper.COLUMN_NAME_ID,
+            KeePassListDatabaseHelper.COLUMN_NAME_LOCAL_FILE_NAME,
+            KeePassListDatabaseHelper.COLUMN_NAME_ORIGIN,
+            KeePassListDatabaseHelper.COLUMN_NAME_REVISION,
+            KeePassListDatabaseHelper.COLUMN_NAME_REMOTE_PATH,
+            KeePassListDatabaseHelper.COLUMN_NAME_LAST_USED_DATE};
 
     public KeePassListDatabase(Context context) {
         keePassListDatabaseHelper = new KeePassListDatabaseHelper(context);

@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 
 import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListDatabase;
 import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
-import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

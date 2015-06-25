@@ -26,7 +26,6 @@
         android:text="@string/propertyEntry"
         android:textColor="#000000"
         android:textSize="14sp"
-        android:layout_weight="1"
         android:ellipsize="none"
         android:maxLines="100"
         android:scrollHorizontally="false"

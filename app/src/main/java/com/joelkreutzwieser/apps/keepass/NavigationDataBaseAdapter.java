@@ -4,17 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
-import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
 import java.util.List;
 
-/**
- * Created by joel.kreutzwieser on 2015-06-24.
- */
 public class NavigationDataBaseAdapter extends RecyclerView.Adapter<NavigationDataBaseAdapter.ViewHolder> {
 
     private List<KeePassListEntry> mDataset;

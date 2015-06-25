@@ -4,11 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dropbox.client2.DropboxAPI;
-
-import org.simpleframework.xml.Text;
 
 import java.util.List;
 
@@ -23,10 +22,12 @@ public class DropboxFileAdapter extends RecyclerView.Adapter<DropboxFileAdapter.
         // each data item_entry is just a string in this case
         public TextView mTextView;
         public TextView fileType;
+        public ImageView fileImage;
         public ViewHolder(View v) {
             super(v);
             mTextView = (TextView)v.findViewById(R.id.fileName);
             fileType = (TextView)v.findViewById(R.id.fileType);
+            fileImage = (ImageView)v.findViewById(R.id.fileImage);
         }
     }
 
@@ -58,6 +59,7 @@ public class DropboxFileAdapter extends RecyclerView.Adapter<DropboxFileAdapter.
         }
         if(mDataset.get(position).isDir) {
             holder.fileType.setText("Directory");
+            holder.fileImage.setImageResource(R.drawable.ic_folder_black_24dp);
         } else {
             holder.fileType.setText(mDataset.get(position).mimeType);
         }

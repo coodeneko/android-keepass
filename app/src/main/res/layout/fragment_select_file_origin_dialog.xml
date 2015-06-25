@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/dropboxSelector">
 
         <TextView
             android:layout_width="match_parent"
@@ -24,6 +25,28 @@
             android:paddingEnd="6dp"
             android:paddingStart="6dp"
             android:src="@drawable/dropbox" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dropboxSelector">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginEnd="36dp"
+            android:paddingTop="16dp"
+            android:text="Local Storage" />
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:onClick="clickPasswordVisibility"
+            android:paddingEnd="6dp"
+            android:paddingStart="6dp"
+            android:src="@drawable/ic_folder_black_24dp" />
     </RelativeLayout>
 
 </RelativeLayout>
