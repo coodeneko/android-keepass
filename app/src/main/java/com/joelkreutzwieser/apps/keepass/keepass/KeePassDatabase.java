@@ -1,5 +1,6 @@
 package com.joelkreutzwieser.apps.keepass.keepass;
 
+import com.google.common.io.ByteStreams;
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.Decrypter;
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.ProtectedStringCrypto;
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.SHA256;
@@ -153,12 +154,12 @@ public class KeePassDatabase {
                 throw new KeePassDatabaseUnreadable("The database is corrupt");
             }
             HashedBlockInputStream hashedBlockInputStream = new HashedBlockInputStream(decryptedStream);
-            byte[] hasedBlockBytes = StreamUtils.toByteArray(hashedBlockInputStream);
+            byte[] hasedBlockBytes = ByteStreams.toByteArray(hashedBlockInputStream);
             byte[] decompressed = hasedBlockBytes;
 
             if (keePassHeader.getCompressionFlag().equals(CompressionAlgorithm.Gzip)) {
                 GZIPInputStream gzipInputStream = new GZIPInputStream(new ByteArrayInputStream(hasedBlockBytes));
-                decompressed = StreamUtils.toByteArray(gzipInputStream);
+                decompressed = ByteStreams.toByteArray(gzipInputStream);
             }
 
             ProtectedStringCrypto protectedStringCrypto;
@@ -171,7 +172,7 @@ public class KeePassDatabase {
             for (byte line : decompressed
                     ) {
 
-                //System.out.print((char)line);
+                System.out.print((char)line);
             }
             return keePassDatabaseXmlParser.parse(new ByteArrayInputStream(decompressed), protectedStringCrypto, keePassHeader.getProtectionStreamKey());
         } catch (IOException e) {

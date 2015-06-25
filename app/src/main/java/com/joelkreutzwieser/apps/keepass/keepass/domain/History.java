@@ -8,7 +8,7 @@ import java.util.List;
 
 @Root(strict = false)
 public class History {
-    @Element(name = "Entry", required = false)
+    /*@Element(name = "Entry", required = false)
     private List<Entry> entries = new ArrayList<>();
 
     public List<Entry> getHistoricalEntries() {
@@ -17,5 +17,5 @@ public class History {
 
     public void setHistoricalEntries(List<Entry> historicalEntries) {
         this.entries = historicalEntries;
-    }
+    }*/
 }

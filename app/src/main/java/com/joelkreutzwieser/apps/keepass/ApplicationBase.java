@@ -1,7 +1,9 @@
 package com.joelkreutzwieser.apps.keepass;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.joelkreutzwieser.apps.keepass.keepass.KeePassAsync;
 import com.joelkreutzwieser.apps.keepass.keepass.KeePassDatabase;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
@@ -24,7 +26,13 @@ public class ApplicationBase extends Application {
     }
 
     public void openDatabase(InputStream inputStream, String password) {
-        database = KeePassDatabase.getInstance(inputStream).openDatabase(password);
+        KeePassAsync keePassAsync = new KeePassAsync(inputStream, password);
+        try {
+            database = keePassAsync.execute().get();
+        } catch (Exception e) {
+            Log.i("KPLoading", "Failed to load db", e);
+        }
+        //database = KeePassDatabase.getInstance(inputStream).openDatabase(password);
     }
 
 }
