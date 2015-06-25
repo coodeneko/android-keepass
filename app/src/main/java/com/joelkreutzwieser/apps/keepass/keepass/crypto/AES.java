@@ -67,8 +67,7 @@ public class AES {
             c.init(Cipher.ENCRYPT_MODE, aesKey);
 
             for (long i = 0; i < rounds; ++i) {
-                c.update(data, 0, 16, data, 0);
-                c.update(data, 16, 16, data, 16);
+                data = c.doFinal(data);
             }
 
             return data;
@@ -78,7 +77,7 @@ public class AES {
             throw new RuntimeException(e);
         } catch (InvalidKeyException e) {
             throw new RuntimeException("The key has the wrong size. Have you installed Java Cryptography Extension (JCE)?", e);
-        } catch (ShortBufferException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
