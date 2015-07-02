@@ -2,6 +2,10 @@ package com.joelkreutzwieser.apps.keepass.keepass.crypto;
 
 import com.joelkreutzwieser.apps.keepass.keepass.exception.KeePassDatabaseUnreadable;
 
+import org.spongycastle.crypto.BlockCipher;
+import org.spongycastle.crypto.engines.AESFastEngine;
+import org.spongycastle.crypto.params.KeyParameter;
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -11,7 +15,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -62,21 +65,19 @@ public class AES {
         }
 
         try {
-            Cipher c = Cipher.getInstance("AES/ECB/NoPadding");
-            Key aesKey = new SecretKeySpec(key, KEY_ALGORITHM);
-            c.init(Cipher.ENCRYPT_MODE, aesKey);
+            byte[] clone = data.clone();
+            BlockCipher aesFastEngine = new AESFastEngine();
+            aesFastEngine.init(true, new KeyParameter(key));
+            System.out.println("Start");
 
             for (long i = 0; i < rounds; ++i) {
-                data = c.doFinal(data);
+                aesFastEngine.processBlock(clone, 0, clone, 0);
+                aesFastEngine.processBlock(clone, 16, clone, 16);
             }
 
-            return data;
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (NoSuchPaddingException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException("The key has the wrong size. Have you installed Java Cryptography Extension (JCE)?", e);
+            System.out.println("Stop");
+
+            return clone;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
