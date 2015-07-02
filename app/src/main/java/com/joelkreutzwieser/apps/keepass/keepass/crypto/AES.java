@@ -65,19 +65,40 @@ public class AES {
         }
 
         try {
-            byte[] clone = data.clone();
             BlockCipher aesFastEngine = new AESFastEngine();
             aesFastEngine.init(true, new KeyParameter(key));
-            System.out.println("Start");
-
-            for (long i = 0; i < rounds; ++i) {
-                aesFastEngine.processBlock(clone, 0, clone, 0);
-                aesFastEngine.processBlock(clone, 16, clone, 16);
+            byte[] part1 = new byte[16];
+            byte[] part2 = new byte[16];
+            for(int i = 0; i < 16; i++) {
+                part1[i] = data[i];
+                part2[i] = data[16+i];
             }
 
-            System.out.println("Stop");
+            AESThread thread1 = new AESThread(key, part1, rounds);
+            AESThread thread2 = new AESThread(key, part2, rounds);
+            Thread t1 = new Thread(thread1);
+            Thread t2 = new Thread(thread2);
+            t1.start();
+            t2.start();
+            while (true) {
+                try {
+                    t1.join();
+                    t2.join();
+                    break;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            return clone;
+            part1 = thread1.getData();
+            part2 = thread2.getData();
+
+            for(int i = 0; i < 16; i++) {
+                data[i] = part1[i];
+                data[16+i] = part2[i];
+            }
+
+            return data;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -85,5 +106,34 @@ public class AES {
 
     private static KeePassDatabaseUnreadable createCryptoException(Throwable e) {
         return new KeePassDatabaseUnreadable("Could not decrypt keepass file. Master key wrong?", e);
+    }
+}
+
+class AESThread implements Runnable {
+
+    byte[] key;
+    byte[] data;
+    long rounds;
+    boolean done;
+
+    AESThread(byte[] key, byte[] data, long rounds) {
+        this.key = key.clone();
+        this.data = data.clone();
+        this.rounds = rounds;
+        this.done = false;
+    }
+
+    @Override
+    public void run() {
+        BlockCipher aesFastEngine = new AESFastEngine();
+        aesFastEngine.init(true, new KeyParameter(key));
+        for (long i = 0; i < rounds; ++i) {
+            aesFastEngine.processBlock(data, 0, data, 0);
+        }
+        done = true;
+    }
+
+    public byte[] getData() {
+        return data;
     }
 }
