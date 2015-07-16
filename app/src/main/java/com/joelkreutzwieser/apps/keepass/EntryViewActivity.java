@@ -60,4 +60,8 @@ public class EntryViewActivity extends AppCompatActivity {
     public void clickCopyProperty(View view) {
         propertyListFragment.clickCopyProperty(view);
     }
+
+    public void clickVisibilityProperty(View view) {
+        propertyListFragment.clickVisibilityProperty(view);
+    }
 }

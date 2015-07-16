@@ -4,13 +4,20 @@ package com.joelkreutzwieser.apps.keepass;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
+import android.text.method.TransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
@@ -65,10 +72,24 @@ public class EntryViewFragment extends Fragment {
 
     public void clickCopyProperty(View view) {
         ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        int selectedPosition = recyclerView.getChildLayoutPosition((View)view.getParent());
+        int selectedPosition = recyclerView.getChildLayoutPosition((View)view.getParent().getParent());
         Property property = properties.get(selectedPosition);
         ClipData clip = ClipData.newPlainText(property.getKey(), property.getValue());
         clipboard.setPrimaryClip(clip);
         Toast.makeText(getActivity().getApplicationContext(), property.getKey() + " copied to Clipboard", Toast.LENGTH_SHORT).show();
+    }
+
+    public void clickVisibilityProperty(View view) {
+        ImageView passwordVisibility = (ImageView)((View) view.getParent().getParent()).findViewById(R.id.propertyVisibility);
+        TextView password = (TextView)((View) view.getParent().getParent()).findViewById(R.id.propertyEntry);
+        Typeface typeface = password.getTypeface();
+        if(password.getTransformationMethod() == null) {
+            password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            passwordVisibility.setImageResource(R.drawable.ic_eye_black_24dp);
+        } else {
+            password.setTransformationMethod(null);
+            passwordVisibility.setImageResource(R.drawable.ic_eye_off_black_24dp);
+        }
+        password.setTypeface(typeface);
     }
 }

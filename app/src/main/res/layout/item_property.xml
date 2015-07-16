@@ -20,27 +20,45 @@
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_below="@+id/propertyTitle"
+        android:ellipsize="none"
         android:fontFamily="sans-serif"
-        android:paddingEnd="72dp"
+        android:inputType="textMultiLine"
+        android:maxLines="100"
+        android:paddingEnd="144dp"
         android:paddingStart="16dp"
+        android:scrollHorizontally="false"
         android:text="@string/propertyEntry"
         android:textColor="#000000"
-        android:textSize="14sp"
-        android:ellipsize="none"
-        android:maxLines="100"
-        android:scrollHorizontally="false"
-        android:inputType="textMultiLine"/>
+        android:textSize="14sp" />
 
-    <ImageView
-        android:id="@+id/propertyCopy"
-        android:layout_width="72dp"
+    <LinearLayout
+        android:layout_width="144dp"
         android:layout_height="match_parent"
-        android:contentDescription="@string/propertyCopy"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/ic_content_copy_black_24dp"
-        android:onClick="clickCopyProperty"/>
+        android:gravity="end">
+
+        <ImageView
+            android:id="@+id/propertyVisibility"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/propertyCopy"
+            android:onClick="clickVisibilityProperty"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:src="@drawable/ic_eye_black_24dp"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/propertyCopy"
+            android:layout_width="72dp"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/propertyCopy"
+            android:onClick="clickCopyProperty"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:src="@drawable/ic_content_copy_black_24dp" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

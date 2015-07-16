@@ -5,6 +5,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Property;
@@ -21,11 +22,13 @@ public class EntryViewPropertyAdapter extends RecyclerView.Adapter<EntryViewProp
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView propertyTitle;
         public TextView propertyEntry;
+        public ImageView propertyVisibility;
 
         public ViewHolder(View v) {
             super(v);
             this.propertyTitle = (TextView) v.findViewById(R.id.propertyTitle);
             this.propertyEntry = (TextView) v.findViewById(R.id.propertyEntry);
+            this.propertyVisibility = (ImageView) v.findViewById(R.id.propertyVisibility);
         }
     }
 
@@ -50,6 +53,7 @@ public class EntryViewPropertyAdapter extends RecyclerView.Adapter<EntryViewProp
         holder.propertyEntry.setText(propertyList.get(position).getValue());
         if(propertyList.get(position).isProtected()) {
             holder.propertyEntry.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            holder.propertyVisibility.setVisibility(View.VISIBLE);
         }
     }
 
