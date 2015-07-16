@@ -37,13 +37,12 @@ public class Salsa20 implements ProtectedStringCrypto {
         if (protectedString == null) {
             throw new IllegalArgumentException("ProtectedString must not be null");
         }
-
-        byte[] protectedBuffer = Base64.decode(protectedString.getBytes());
-        byte[] plainText = new byte[protectedBuffer.length];
-
-        salsa20Engine.processBytes(protectedBuffer, 0, protectedBuffer.length, plainText, 0);
-
         try {
+            byte[] protectedBuffer = Base64.decode(protectedString.getBytes("UTF-8"));
+            byte[] plainText = new byte[protectedBuffer.length];
+
+            salsa20Engine.processBytes(protectedBuffer, 0, protectedBuffer.length, plainText, 0);
+
             return new String(plainText, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new UnsupportedOperationException("The encoding UTF-8 is not supported");
