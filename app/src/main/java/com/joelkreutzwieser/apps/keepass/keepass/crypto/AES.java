@@ -80,6 +80,9 @@ public class AES {
             AESThread thread2 = new AESThread(key, part2, rounds, null);
             Thread t1 = new Thread(thread1);
             Thread t2 = new Thread(thread2);
+            t1.setPriority(Thread.MAX_PRIORITY);
+            t2.setPriority(Thread.MAX_PRIORITY);
+            t1.
             t1.start();
             t2.start();
             while (true) {
@@ -130,14 +133,14 @@ class AESThread implements Runnable {
     @Override
     public void run() {
         boolean updater = false;
-        if(progressDialog != null && rounds <= Integer.MAX_VALUE) {
-            progressDialog.setMax((int)rounds);
+        if(progressDialog != null && rounds <= Integer.MAX_VALUE && progressDialog.isShowing()) {
+            progressDialog.setMax((int) rounds);
             updater = true;
         }
         BlockCipher aesFastEngine = new AESFastEngine();
         aesFastEngine.init(true, new KeyParameter(key));
         for (long i = 0; i < rounds; ++i) {
-            if(updater && (i % 10000) == 0) {
+            if(updater && (i % 10000) == 0 && progressDialog.isShowing()) {
                 progressDialog.setProgress((int)i);
             }
             aesFastEngine.processBlock(data, 0, data, 0);

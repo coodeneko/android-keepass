@@ -2,6 +2,7 @@ package com.joelkreutzwieser.apps.keepass.keepass;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.ApplicationBase;
@@ -21,11 +22,13 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog.setMessage("Testing...");
+        progressDialog.setMessage("Decrypting and parsing database...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setProgressNumberFormat("");
         progressDialog.show();
+        groupViewActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     public KeePassAsync(InputStream inputStream, String password, GroupViewActivity groupViewActivity) {
@@ -55,6 +58,7 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         Toast.makeText(groupViewActivity, R.string.openedDatabase, Toast.LENGTH_SHORT).show();
         groupViewActivity.drawerFragment.drawerLayout.closeDrawers();
         groupViewActivity.drawerFragment.sendToActivity.onNavigationItemSelected(((ApplicationBase) groupViewActivity.getApplication()).getDatabaseRoot());
+        groupViewActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
@@ -65,5 +69,6 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         }
         ((ApplicationBase) groupViewActivity.getApplication()).setDatabase(keePassFile);
         Toast.makeText(groupViewActivity, R.string.failedToOpenDatabase, Toast.LENGTH_LONG).show();
+        groupViewActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 }
