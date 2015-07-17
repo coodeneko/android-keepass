@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
+import com.joelkreutzwieser.apps.keepass.keepass.KeePassAsync;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     private InputStream inputStream;
 
     private ActionBarDrawerToggle drawerToggle;
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     private View containerView;
 
     private boolean userLearnedDrawer;
@@ -49,7 +50,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     private Fragment navigationGroup;
     private Fragment dialogFragment;
 
-    OnNavigationItemSelectedListener sendToActivity;
+    public OnNavigationItemSelectedListener sendToActivity;
 
     public void clickPasswordVisibility(View view) {
         ((DatabaseCredentialsDialogFragment)dialogFragment).clickPasswordVisibility(view);
@@ -195,14 +196,8 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         EditText password = (EditText) dialog.getDialog().findViewById(R.id.password);
-        try {
-            ((ApplicationBase) getActivity().getApplication()).openDatabase(this.inputStream, password.getText().toString());
-            sendToActivity.onNavigationItemSelected(((ApplicationBase) getActivity().getApplication()).getDatabaseRoot());
-            Toast.makeText(getActivity(), R.string.openedDatabase, Toast.LENGTH_SHORT).show();
-            drawerLayout.closeDrawers();
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), R.string.failedToOpenDatabase, Toast.LENGTH_LONG).show();
-        }
+        KeePassAsync keePassAsync = new KeePassAsync(inputStream, password.getText().toString(), ((GroupViewActivity)getActivity()));
+        keePassAsync.execute();
     }
 
     @Override

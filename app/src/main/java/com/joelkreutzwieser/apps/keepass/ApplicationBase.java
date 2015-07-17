@@ -25,14 +25,7 @@ public class ApplicationBase extends Application {
         return (database != null);
     }
 
-    public void openDatabase(InputStream inputStream, String password) {
-        KeePassAsync keePassAsync = new KeePassAsync(inputStream, password);
-        try {
-            database = keePassAsync.execute().get();
-        } catch (Exception e) {
-            Log.i("KPLoading", "Failed to load db", e);
-        }
-        //database = KeePassDatabase.getInstance(inputStream).openDatabase(password);
+    public void setDatabase(KeePassFile keePassFile) {
+        this.database = keePassFile;
     }
-
 }

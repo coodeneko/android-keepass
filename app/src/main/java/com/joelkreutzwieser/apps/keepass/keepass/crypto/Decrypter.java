@@ -1,5 +1,7 @@
 package com.joelkreutzwieser.apps.keepass.keepass.crypto;
 
+import android.app.ProgressDialog;
+
 import com.joelkreutzwieser.apps.keepass.keepass.KeePassDatabase;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassHeader;
 import com.joelkreutzwieser.apps.keepass.keepass.util.StreamUtils;
@@ -10,8 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class Decrypter {
-    public byte[] decryptDatabase(byte[] password, KeePassHeader header, byte[] database) throws IOException {
-        byte[] aesKey = createAesKey(password, header);
+    public byte[] decryptDatabase(byte[] password, KeePassHeader header, byte[] database, ProgressDialog progressDialog) throws IOException {
+        byte[] aesKey = createAesKey(password, header, progressDialog);
 
         BufferedInputStream bufferedInputStream = new BufferedInputStream(new ByteArrayInputStream(database));
         bufferedInputStream.skip(KeePassDatabase.VERSION_SIGNATURE_LENGTH + header.getHeaderSize());
@@ -21,10 +23,10 @@ public class Decrypter {
         return AES.decrypt(aesKey, header.getEncryptionIV(), payload);
     }
 
-    private byte[] createAesKey(byte[] password, KeePassHeader header) {
+    private byte[] createAesKey(byte[] password, KeePassHeader header, ProgressDialog progressDialog) {
         byte[] hashedPwd = SHA256.hash(password);
 
-        byte[] transformedPwd = AES.transformKey(header.getTransformSeed(), hashedPwd, header.getTransformRounds());
+        byte[] transformedPwd = AES.transformKey(header.getTransformSeed(), hashedPwd, header.getTransformRounds(), progressDialog);
         byte[] transformedHashedPwd = SHA256.hash(transformedPwd);
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();

@@ -1,5 +1,7 @@
 package com.joelkreutzwieser.apps.keepass.keepass.crypto;
 
+import android.app.ProgressDialog;
+
 import com.joelkreutzwieser.apps.keepass.keepass.exception.KeePassDatabaseUnreadable;
 
 import org.spongycastle.crypto.BlockCipher;
@@ -53,7 +55,7 @@ public class AES {
         }
     }
 
-    public static byte[] transformKey(byte[] key, byte[] data, long rounds) {
+    public static byte[] transformKey(byte[] key, byte[] data, long rounds, ProgressDialog progressDialog) {
         if (key == null) {
             throw new IllegalArgumentException("Key must not be null");
         }
@@ -74,8 +76,8 @@ public class AES {
                 part2[i] = data[16+i];
             }
 
-            AESThread thread1 = new AESThread(key, part1, rounds);
-            AESThread thread2 = new AESThread(key, part2, rounds);
+            AESThread thread1 = new AESThread(key, part1, rounds, progressDialog);
+            AESThread thread2 = new AESThread(key, part2, rounds, null);
             Thread t1 = new Thread(thread1);
             Thread t2 = new Thread(thread2);
             t1.start();
@@ -115,19 +117,29 @@ class AESThread implements Runnable {
     byte[] data;
     long rounds;
     boolean done;
+    ProgressDialog progressDialog;
 
-    AESThread(byte[] key, byte[] data, long rounds) {
+    AESThread(byte[] key, byte[] data, long rounds, ProgressDialog progressDialog) {
         this.key = key.clone();
         this.data = data.clone();
         this.rounds = rounds;
         this.done = false;
+        this.progressDialog = progressDialog;
     }
 
     @Override
     public void run() {
+        boolean updater = false;
+        if(progressDialog != null && rounds <= Integer.MAX_VALUE) {
+            progressDialog.setMax((int)rounds);
+            updater = true;
+        }
         BlockCipher aesFastEngine = new AESFastEngine();
         aesFastEngine.init(true, new KeyParameter(key));
         for (long i = 0; i < rounds; ++i) {
+            if(updater && (i % 10000) == 0) {
+                progressDialog.setProgress((int)i);
+            }
             aesFastEngine.processBlock(data, 0, data, 0);
         }
         done = true;

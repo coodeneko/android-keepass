@@ -1,5 +1,7 @@
 package com.joelkreutzwieser.apps.keepass.keepass;
 
+import android.app.ProgressDialog;
+
 import com.google.common.io.ByteStreams;
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.Decrypter;
 import com.joelkreutzwieser.apps.keepass.keepass.crypto.ProtectedStringCrypto;
@@ -126,7 +128,7 @@ public class KeePassDatabase {
         }
     }
 
-    public KeePassFile openDatabase(String password) {
+    public KeePassFile openDatabase(String password, ProgressDialog progressDialog) {
         if (password == null) {
             throw new IllegalArgumentException("Password cannot be null");
         }
@@ -135,15 +137,15 @@ public class KeePassDatabase {
             byte[] passwordByte = password.getBytes("UTF-8");
             byte[] hashedPassword = SHA256.hash(passwordByte);
 
-            return decryptAndParseDatabase(hashedPassword);
+            return decryptAndParseDatabase(hashedPassword, progressDialog);
         } catch (UnsupportedEncodingException e) {
             throw new UnsupportedOperationException("The encoding UTF-8 is not supported");
         }
     }
 
-    private KeePassFile decryptAndParseDatabase(byte[] key) {
+    private KeePassFile decryptAndParseDatabase(byte[] key, ProgressDialog progressDialog) {
         try {
-            byte[] aesDecryptedFile = decrypter.decryptDatabase(key, this.keePassHeader, this.keePassFile);
+            byte[] aesDecryptedFile = decrypter.decryptDatabase(key, this.keePassHeader, this.keePassFile, progressDialog);
 
             byte[] startBytes = new byte[32];
             ByteArrayInputStream decryptedStream = new ByteArrayInputStream(aesDecryptedFile);
