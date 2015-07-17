@@ -37,7 +37,12 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
 
     @Override
     protected KeePassFile doInBackground(Void... params) {
-        return KeePassDatabase.getInstance(inputStream).openDatabase(password, progressDialog);
+        try {
+            return KeePassDatabase.getInstance(inputStream).openDatabase(password, progressDialog);
+        } catch (Exception e) {
+            cancel(true);
+            return null;
+        }
     }
 
     @Override
@@ -50,5 +55,15 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         Toast.makeText(groupViewActivity, R.string.openedDatabase, Toast.LENGTH_SHORT).show();
         groupViewActivity.drawerFragment.drawerLayout.closeDrawers();
         groupViewActivity.drawerFragment.sendToActivity.onNavigationItemSelected(((ApplicationBase) groupViewActivity.getApplication()).getDatabaseRoot());
+    }
+
+    @Override
+    protected void onCancelled(KeePassFile keePassFile) {
+        super.onCancelled(keePassFile);
+        if(progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+        ((ApplicationBase) groupViewActivity.getApplication()).setDatabase(keePassFile);
+        Toast.makeText(groupViewActivity, R.string.failedToOpenDatabase, Toast.LENGTH_LONG).show();
     }
 }
