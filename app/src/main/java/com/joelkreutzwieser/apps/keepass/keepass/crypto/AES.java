@@ -82,7 +82,6 @@ public class AES {
             Thread t2 = new Thread(thread2);
             t1.setPriority(Thread.MAX_PRIORITY);
             t2.setPriority(Thread.MAX_PRIORITY);
-            t1.
             t1.start();
             t2.start();
             while (true) {
