@@ -3,33 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="72dp">
 
-    <TextView
-        android:id="@+id/propertyTitle"
-        android:layout_width="match_parent"
+    <HorizontalScrollView
+        android:id="@+id/propertyTitleScroll"
+        android:layout_width="fill_parent"
         android:layout_height="36dp"
-        android:fontFamily="sans-serif-medium"
-        android:paddingEnd="72dp"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:text="@string/propertyTitle"
-        android:textColor="#000000"
-        android:textSize="14sp" />
+        android:layout_marginEnd="144dp"
+        android:layout_marginStart="16dp">
 
-    <TextView
-        android:id="@+id/propertyEntry"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/propertyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="bottom"
+            android:text="@string/propertyTitle"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
         android:layout_height="36dp"
-        android:layout_below="@+id/propertyTitle"
-        android:ellipsize="none"
-        android:fontFamily="sans-serif"
-        android:inputType="textMultiLine"
-        android:maxLines="100"
-        android:paddingEnd="144dp"
-        android:paddingStart="16dp"
-        android:scrollHorizontally="false"
-        android:text="@string/propertyEntry"
-        android:textColor="#000000"
-        android:textSize="14sp" />
+        android:layout_below="@+id/propertyTitleScroll"
+        android:layout_marginEnd="144dp"
+        android:layout_marginStart="16dp">
+
+        <TextView
+            android:id="@+id/propertyEntry"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:fontFamily="sans-serif"
+            android:scrollHorizontally="false"
+            android:text="@string/propertyEntry"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+    </HorizontalScrollView>
+
 
     <LinearLayout
         android:layout_width="144dp"
@@ -46,7 +56,7 @@
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:src="@drawable/ic_eye_black_24dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/propertyCopy"
