@@ -24,6 +24,7 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        groupViewActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         progressDialog.setMessage("Decrypting and parsing database...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
@@ -72,5 +73,6 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         ((ApplicationBase) groupViewActivity.getApplication()).setDatabase(keePassFile);
         Toast.makeText(groupViewActivity, R.string.failedToOpenDatabase, Toast.LENGTH_LONG).show();
         groupViewActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        groupViewActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
 }
