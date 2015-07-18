@@ -107,8 +107,9 @@ public class DropboxFileActivity extends AppCompatActivity {
             }
         } else {
             try {
-                DropboxFileDownloader downloader = new DropboxFileDownloader(mDBApi, file.path, file.fileName(), getApplicationContext());
-                File localFile = downloader.execute().get();
+                DropboxFileDownloader downloader = new DropboxFileDownloader(mDBApi, file.path, file.fileName(), this);
+                downloader.execute();
+                File localFile = downloader.get();
                 Intent intent = new Intent();
                 intent.putExtra("fileName", localFile.getName());
                 setResult(RESULT_OK, intent);

@@ -1,7 +1,9 @@
 package com.joelkreutzwieser.apps.keepass.keepass;
 
 import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 

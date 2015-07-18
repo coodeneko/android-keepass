@@ -1,5 +1,6 @@
 package com.joelkreutzwieser.apps.keepass;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -15,16 +16,27 @@ import java.util.Date;
 public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
 
     private final String name;
+    private DropboxFileActivity activity;
     private Context context;
     private DropboxAPI<?> dropbox;
     private String path;
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private ProgressDialog progressDialog;
 
-    public DropboxFileDownloader(DropboxAPI<?> dropbox, String path, String name, Context context) {
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progressDialog = new ProgressDialog(activity);
+        progressDialog.setMessage("Downloading...");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+    }
+
+    public DropboxFileDownloader(DropboxAPI<?> dropbox, String path, String name, DropboxFileActivity activity) {
         this.dropbox = dropbox;
         this.path = path;
-        this.context = context;
+        this.activity = activity;
+        this.context = activity.getApplicationContext();
         this.name = name;
     }
 
@@ -51,5 +63,13 @@ public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
         }
 
         return localFile;
+    }
+
+    @Override
+    protected void onPostExecute(File file) {
+        super.onPostExecute(file);
+        if(progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }
