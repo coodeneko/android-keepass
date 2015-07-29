@@ -3,7 +3,7 @@ package com.joelkreutzwieser.apps.keepass.keepass;
 import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
-import android.view.Window;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -46,6 +46,8 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         try {
             return KeePassDatabase.getInstance(inputStream).openDatabase(password, progressDialog);
         } catch (Exception e) {
+            Toast.makeText(groupViewActivity, e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e("KEEPASS", e.getMessage());
             cancel(true);
             return null;
         }
