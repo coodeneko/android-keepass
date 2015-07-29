@@ -128,7 +128,7 @@ public class KeePassDatabase {
         }
     }
 
-    public KeePassFile openDatabase(String password, ProgressDialog progressDialog) {
+    public KeePassFile openDatabase(String password, String keyfile, ProgressDialog progressDialog) {
         if (password == null) {
             throw new IllegalArgumentException("Password cannot be null");
         }

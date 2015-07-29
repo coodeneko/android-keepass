@@ -18,6 +18,7 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
 
     private InputStream inputStream;
     private String password;
+    private String keyfile;
     private ProgressDialog progressDialog;
     private GroupViewActivity groupViewActivity;
 
@@ -34,9 +35,10 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         groupViewActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    public KeePassAsync(InputStream inputStream, String password, GroupViewActivity groupViewActivity) {
+    public KeePassAsync(InputStream inputStream, String password, String keyfile, GroupViewActivity groupViewActivity) {
         this.inputStream = inputStream;
         this.password = password;
+        this.keyfile = keyfile;
         this.groupViewActivity = groupViewActivity;
         progressDialog = new ProgressDialog(groupViewActivity);
     }
@@ -44,7 +46,7 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
     @Override
     protected KeePassFile doInBackground(Void... params) {
         try {
-            return KeePassDatabase.getInstance(inputStream).openDatabase(password, progressDialog);
+            return KeePassDatabase.getInstance(inputStream).openDatabase(password, keyfile, progressDialog);
         } catch (Exception e) {
             Toast.makeText(groupViewActivity, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.e("KEEPASS", e.getMessage());

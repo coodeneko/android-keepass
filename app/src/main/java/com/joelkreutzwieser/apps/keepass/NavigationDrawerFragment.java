@@ -196,7 +196,7 @@ public class NavigationDrawerFragment extends Fragment implements DatabaseCreden
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         EditText password = (EditText) dialog.getDialog().findViewById(R.id.password);
-        KeePassAsync keePassAsync = new KeePassAsync(inputStream, password.getText().toString(), ((GroupViewActivity)getActivity()));
+        KeePassAsync keePassAsync = new KeePassAsync(inputStream, password.getText().toString(), null, ((GroupViewActivity)getActivity()));
         keePassAsync.execute();
     }
 
