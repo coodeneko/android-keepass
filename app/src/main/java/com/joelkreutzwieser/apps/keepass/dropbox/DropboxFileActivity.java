@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.dropbox;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.view.View;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AppKeyPair;
+import com.joelkreutzwieser.apps.keepass.ListDropboxFiles;
+import com.joelkreutzwieser.apps.keepass.R;
 
 import java.io.File;
 import java.util.ArrayList;

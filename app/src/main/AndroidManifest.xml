@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DropboxFileActivity"
+            android:name=".dropbox.DropboxFileActivity"
             android:label="@string/title_activity_dropbox_file" >
         </activity>
     </application>
