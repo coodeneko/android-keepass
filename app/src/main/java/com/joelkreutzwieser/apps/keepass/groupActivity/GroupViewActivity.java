@@ -1,6 +1,7 @@
 package com.joelkreutzwieser.apps.keepass.groupActivity;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.joelkreutzwieser.apps.keepass.DatabaseFileOriginFragment;
 import com.joelkreutzwieser.apps.keepass.KeePassDrawerLayout;
 import com.joelkreutzwieser.apps.keepass.navigationView.NavigationDrawerFragment;
 import com.joelkreutzwieser.apps.keepass.R;
@@ -29,6 +31,7 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     public NavigationDrawerFragment drawerFragment;
     private KeePassDrawerLayout drawerLayout;
     private EntryListFragment entryListFragment;
+    private Fragment dialogFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +84,8 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     }
 
     public void clickNewDatabase(View view) {
-        Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
-        startActivityForResult(new Intent(this, DropboxFileActivity.class), 52);
+        dialogFragment = new DatabaseFileOriginFragment();
+        ((DatabaseFileOriginFragment)dialogFragment).show(getSupportFragmentManager(), "ORIGIN");
     }
 
     @Override
@@ -134,5 +137,11 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
 
     public void clickPasswordVisibility(View view) {
         drawerFragment.clickPasswordVisibility(view);
+    }
+
+    public void onDialogOriginSelect(View view) {
+        ((DatabaseFileOriginFragment)dialogFragment).dismiss();
+        Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
+        startActivityForResult(new Intent(this, DropboxFileActivity.class), 52);
     }
 }
