@@ -40,7 +40,7 @@ public class EntryViewActivity extends AppCompatActivity {
         propertyListFragment = (EntryViewFragment)getSupportFragmentManager().findFragmentById(R.id.propertyListFragment);
         propertyListFragment.setActiveEntry(entry);
 
-        Intent intent = new Intent(this, null);
+        Intent intent = new Intent(this, EntryViewActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         Notification notification = new Notification.Builder(this)
