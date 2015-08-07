@@ -38,6 +38,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.google.guava:guava:18.0'
+    compile 'com.google.android.gms:play-services-drive:7.5.0'
     compile files('libs/dropbox-android-sdk-1.6.3.jar')
     compile files('libs/json_simple-1.1.jar')
     compile files('libs/httpmime-4.0.3.jar')
