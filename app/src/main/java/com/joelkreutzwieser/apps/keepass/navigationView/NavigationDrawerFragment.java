@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.navigationView;
 
 
 import android.app.Activity;
@@ -18,9 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
+import com.joelkreutzwieser.apps.keepass.ApplicationBase;
+import com.joelkreutzwieser.apps.keepass.DatabaseCredentialsDialogFragment;
+import com.joelkreutzwieser.apps.keepass.R;
+import com.joelkreutzwieser.apps.keepass.groupActivity.GroupViewActivity;
+import com.joelkreutzwieser.apps.keepass.keepassDatabase.KeePassListEntry;
 import com.joelkreutzwieser.apps.keepass.keepass.KeePassAsync;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 

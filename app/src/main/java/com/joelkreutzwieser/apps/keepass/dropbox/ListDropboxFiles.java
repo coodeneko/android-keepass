@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.dropbox;
 
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.DropboxAPI.Entry;
 import com.dropbox.client2.exception.DropboxException;
+import com.joelkreutzwieser.apps.keepass.dropbox.DropboxFileAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

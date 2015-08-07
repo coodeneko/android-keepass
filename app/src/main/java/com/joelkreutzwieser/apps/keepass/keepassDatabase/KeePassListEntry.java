@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass.KeePassList;
+package com.joelkreutzwieser.apps.keepass.keepassDatabase;
 
 public class KeePassListEntry {
     public long id;
@@ -7,4 +7,5 @@ public class KeePassListEntry {
     public String revision;
     public String remotePath;
     public long lastUsed;
+    public String keyFile;
 }

@@ -1,5 +1,9 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.entryActivity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.joelkreutzwieser.apps.keepass.ApplicationBase;
+import com.joelkreutzwieser.apps.keepass.R;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 
 public class EntryViewActivity extends AppCompatActivity {
@@ -33,6 +39,23 @@ public class EntryViewActivity extends AppCompatActivity {
 
         propertyListFragment = (EntryViewFragment)getSupportFragmentManager().findFragmentById(R.id.propertyListFragment);
         propertyListFragment.setActiveEntry(entry);
+
+        Intent intent = new Intent(this, null);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        Notification notification = new Notification.Builder(this)
+                .setContentTitle("Data avaiable for" + entry.getTitle())
+                .setContentText(entry.getTitle())
+                .setSmallIcon(R.drawable.ic_lock_outline_black_24dp)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy User", pIntent)
+                .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy Password", pIntent)
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.groupActivity;
 
 
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.joelkreutzwieser.apps.keepass.ApplicationBase;
+import com.joelkreutzwieser.apps.keepass.entryActivity.EntryViewActivity;
+import com.joelkreutzwieser.apps.keepass.R;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 

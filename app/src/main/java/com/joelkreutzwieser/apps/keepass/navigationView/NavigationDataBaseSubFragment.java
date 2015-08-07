@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.navigationView;
 
 
 import android.os.Bundle;
@@ -10,8 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListDatabase;
-import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
+import com.joelkreutzwieser.apps.keepass.R;
+import com.joelkreutzwieser.apps.keepass.keepassDatabase.KeePassListDatabase;
+import com.joelkreutzwieser.apps.keepass.keepassDatabase.KeePassListEntry;
 
 import java.util.List;
 

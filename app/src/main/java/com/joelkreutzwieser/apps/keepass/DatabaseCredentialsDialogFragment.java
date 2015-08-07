@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.joelkreutzwieser.apps.keepass.groupActivity.GroupViewActivity;
+
 public class DatabaseCredentialsDialogFragment extends DialogFragment {
 
     public interface NoticeDialogListener {

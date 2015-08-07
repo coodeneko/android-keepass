@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.entryActivity;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.method.PasswordTransformationMethod;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.joelkreutzwieser.apps.keepass.R;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Property;
 
 import java.util.List;

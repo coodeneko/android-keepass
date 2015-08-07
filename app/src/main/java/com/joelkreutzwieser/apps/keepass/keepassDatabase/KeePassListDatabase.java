@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass.KeePassList;
+package com.joelkreutzwieser.apps.keepass.keepassDatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,7 +18,8 @@ public class KeePassListDatabase {
             KeePassListDatabaseHelper.COLUMN_NAME_ORIGIN,
             KeePassListDatabaseHelper.COLUMN_NAME_REVISION,
             KeePassListDatabaseHelper.COLUMN_NAME_REMOTE_PATH,
-            KeePassListDatabaseHelper.COLUMN_NAME_LAST_USED_DATE};
+            KeePassListDatabaseHelper.COLUMN_NAME_LAST_USED_DATE,
+            KeePassListDatabaseHelper.COLUMN_NAME_KEY_FILE};
 
     public KeePassListDatabase(Context context) {
         keePassListDatabaseHelper = new KeePassListDatabaseHelper(context);
@@ -39,6 +40,7 @@ public class KeePassListDatabase {
         values.put(KeePassListDatabaseHelper.COLUMN_NAME_REVISION, entry.revision);
         values.put(KeePassListDatabaseHelper.COLUMN_NAME_REMOTE_PATH, entry.remotePath);
         values.put(KeePassListDatabaseHelper.COLUMN_NAME_LAST_USED_DATE, entry.lastUsed);
+        values.put(KeePassListDatabaseHelper.COLUMN_NAME_KEY_FILE, entry.keyFile);
         long insertID = database.insert(KeePassListDatabaseHelper.TABLE_NAME, null, values);
         Cursor cursor = database.query(KeePassListDatabaseHelper.TABLE_NAME, allColumns, KeePassListDatabaseHelper.COLUMN_NAME_ID + " = " + insertID, null, null, null, null);
         cursor.moveToFirst();
@@ -74,6 +76,7 @@ public class KeePassListDatabase {
         entry.revision = cursor.getString(3);
         entry.remotePath = cursor.getString(4);
         entry.lastUsed = cursor.getLong(5);
+        entry.keyFile = cursor.getString(6);
         return entry;
     }
 }

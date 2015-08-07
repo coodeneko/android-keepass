@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.dropbox;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 
 import com.dropbox.client2.DropboxAPI;
-import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListDatabase;
-import com.joelkreutzwieser.apps.keepass.KeePassList.KeePassListEntry;
+import com.joelkreutzwieser.apps.keepass.keepassDatabase.KeePassListDatabase;
+import com.joelkreutzwieser.apps.keepass.keepassDatabase.KeePassListEntry;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,6 +56,7 @@ public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
             Date date = new Date();
             entry.lastUsed = date.getTime();
             entry.revision = file.getMetadata().rev;
+            entry.keyFile = "";
             database.createEntry(entry);
             database.close();
         } catch (Exception e) {
