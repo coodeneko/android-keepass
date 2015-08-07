@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.dropbox;
 
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;

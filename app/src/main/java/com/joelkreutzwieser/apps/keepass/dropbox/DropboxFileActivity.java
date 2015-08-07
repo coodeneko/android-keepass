@@ -13,7 +13,6 @@ import android.view.View;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AppKeyPair;
-import com.joelkreutzwieser.apps.keepass.ListDropboxFiles;
 import com.joelkreutzwieser.apps.keepass.R;
 
 import java.io.File;
