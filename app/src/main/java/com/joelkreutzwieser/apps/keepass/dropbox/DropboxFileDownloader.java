@@ -44,6 +44,7 @@ public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
             Date date = new Date();
             entry.lastUsed = date.getTime();
             entry.revision = file.getMetadata().rev;
+            entry.keyFile = "";
             database.createEntry(entry);
             database.close();
         } catch (Exception e) {

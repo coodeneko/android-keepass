@@ -7,4 +7,5 @@ public class KeePassListEntry {
     public String revision;
     public String remotePath;
     public long lastUsed;
+    public String keyFile;
 }
