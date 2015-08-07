@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass.KeePassList;
+package com.joelkreutzwieser.apps.keepass.keepassDatabase;
 
 public class KeePassListEntry {
     public long id;

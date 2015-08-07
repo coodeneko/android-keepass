@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.joelkreutzwieser.apps.keepass.GroupViewActivity">
+        tools:context="com.joelkreutzwieser.apps.keepass.groupActivity.GroupViewActivity">
 
         <include
             android:id="@+id/app_bar"
@@ -16,7 +16,7 @@
 
         <fragment
             android:id="@+id/entryList"
-            android:name="com.joelkreutzwieser.apps.keepass.EntryListFragment"
+            android:name="com.joelkreutzwieser.apps.keepass.groupActivity.EntryListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/app_bar"
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/navigation_drawer"
-        android:name="com.joelkreutzwieser.apps.keepass.NavigationDrawerFragment"
+        android:name="com.joelkreutzwieser.apps.keepass.navigationView.NavigationDrawerFragment"
         android:layout_width="@dimen/navigation_drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"

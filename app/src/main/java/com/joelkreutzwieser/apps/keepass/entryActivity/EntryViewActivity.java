@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass;
+package com.joelkreutzwieser.apps.keepass.entryActivity;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.joelkreutzwieser.apps.keepass.ApplicationBase;
+import com.joelkreutzwieser.apps.keepass.R;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 
 public class EntryViewActivity extends AppCompatActivity {

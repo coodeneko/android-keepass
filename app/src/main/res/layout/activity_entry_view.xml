@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.joelkreutzwieser.apps.keepass.EntryViewActivity">
+    tools:context="com.joelkreutzwieser.apps.keepass.entryActivity.EntryViewActivity">
 
     <include
         android:id="@+id/app_bar"
@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/propertyListFragment"
-        android:name="com.joelkreutzwieser.apps.keepass.EntryViewFragment"
+        android:name="com.joelkreutzwieser.apps.keepass.entryActivity.EntryViewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/app_bar"

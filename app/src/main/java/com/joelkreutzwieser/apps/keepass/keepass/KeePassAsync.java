@@ -6,7 +6,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.ApplicationBase;
-import com.joelkreutzwieser.apps.keepass.GroupViewActivity;
+import com.joelkreutzwieser.apps.keepass.groupActivity.GroupViewActivity;
 import com.joelkreutzwieser.apps.keepass.R;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.KeePassFile;
 
