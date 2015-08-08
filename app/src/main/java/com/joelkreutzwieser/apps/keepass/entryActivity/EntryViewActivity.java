@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +20,7 @@ import com.joelkreutzwieser.apps.keepass.keepass.domain.Entry;
 public class EntryViewActivity extends AppCompatActivity {
 
     private EntryViewFragment propertyListFragment;
+    private int notificationID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,12 @@ public class EntryViewActivity extends AppCompatActivity {
         propertyListFragment.setActiveEntry(entry);
 
         Intent intent = new Intent(this, EntryViewActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(EntryViewActivity.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new Notification.Builder(this)
+        Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Data avaiable for" + entry.getTitle())
                 .setContentText(entry.getTitle())
                 .setSmallIcon(R.drawable.ic_lock_outline_black_24dp)
@@ -51,11 +57,21 @@ public class EntryViewActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy User", pIntent)
                 .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy Password", pIntent)
+                .setPriority(Notification.PRIORITY_MAX)
+                .setVisibility(Notification.VISIBILITY_SECRET)
                 .build();
+        notificationID = 1;
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notification);
+        notificationManager.notify(notificationID, notification);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(notificationID);
     }
 
     @Override

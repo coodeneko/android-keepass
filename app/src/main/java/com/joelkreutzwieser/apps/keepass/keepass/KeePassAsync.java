@@ -48,7 +48,6 @@ public class KeePassAsync extends AsyncTask<Void, Void, KeePassFile> {
         try {
             return KeePassDatabase.getInstance(inputStream).openDatabase(password, keyfile, progressDialog);
         } catch (Exception e) {
-            Toast.makeText(groupViewActivity, e.getMessage(), Toast.LENGTH_LONG).show();
             Log.e("KEEPASS", e.getMessage());
             cancel(true);
             return null;
