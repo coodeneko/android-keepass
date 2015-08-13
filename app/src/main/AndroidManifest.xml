@@ -55,6 +55,12 @@
             android:name=".dropbox.DropboxFileActivity"
             android:label="@string/title_activity_dropbox_file" >
         </activity>
+        <receiver android:name=".NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.joelkreutzwieser.apps.keepass.COPY_ACTION"/>
+                <action android:name="com.joelkreutzwieser.apps.keepass.PASS_ACTION"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

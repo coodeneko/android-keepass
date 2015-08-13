@@ -49,14 +49,22 @@ public class EntryViewActivity extends AppCompatActivity {
         stackBuilder.addNextIntent(intent);
         PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        Intent copyIntent = new Intent();
+        copyIntent.setAction("com.joelkreutzwieser.apps.keepass.COPY_ACTION");
+        PendingIntent copyPendingIntent = PendingIntent.getBroadcast(this, 12345, copyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent passIntent = new Intent();
+        copyIntent.setAction("com.joelkreutzwieser.apps.keepass.PASS_ACTION");
+        PendingIntent passPendingIntent = PendingIntent.getBroadcast(this, 12345, passIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         Notification notification = new NotificationCompat.Builder(this)
                 .setContentTitle("Data avaiable for" + entry.getTitle())
                 .setContentText(entry.getTitle())
                 .setSmallIcon(R.drawable.ic_lock_outline_black_24dp)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
-                .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy User", pIntent)
-                .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy Password", pIntent)
+                .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy User", copyPendingIntent)
+                .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy Password", passPendingIntent)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setVisibility(Notification.VISIBILITY_SECRET)
                 .build();
