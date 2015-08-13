@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
@@ -64,11 +65,12 @@ public class EntryViewActivity extends AppCompatActivity {
                 .setContentText(entry.getTitle())
                 .setSmallIcon(R.drawable.ic_lock_outline_black_24dp)
                 .setContentIntent(pIntent)
-                .setAutoCancel(true)
+                .setAutoCancel(false)
                 .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy User", copyPendingIntent)
                 .addAction(R.drawable.ic_lock_outline_black_24dp, "Copy Password", passPendingIntent)
-                .setPriority(Notification.PRIORITY_MAX)
-                .setVisibility(Notification.VISIBILITY_SECRET)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setVisibility(NotificationCompat.VISIBILITY_SECRET)
+                .setCategory(NotificationCompat.CATEGORY_STATUS)
                 .build();
         notificationID = 1;
 
