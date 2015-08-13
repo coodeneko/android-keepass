@@ -30,5 +30,9 @@ public class NotificationBroadcastReceiver extends BroadcastReceiver {
         } else if (action.equals("com.joelkreutzwieser.apps.keepass.PASS_ACTION")) {
             Toast.makeText(context, "Password Copied to Clipboard", Toast.LENGTH_LONG).show();
         }
+
+        ClipboardClearService clipboardClearService = new ClipboardClearService();
+        Intent clearClipboardIntent = new Intent(clipboardClearService, ClipboardClearService.class);
+        context.startService(clearClipboardIntent);
     }
 }
