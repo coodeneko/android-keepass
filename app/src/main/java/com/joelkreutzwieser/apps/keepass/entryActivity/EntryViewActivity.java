@@ -27,7 +27,7 @@ public class EntryViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_view);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.app_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -36,11 +36,11 @@ public class EntryViewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String UUID = extras.getString("UUID");
 
-        Entry entry = ((ApplicationBase)getApplication()).getDatabaseRoot().getEntryByUUID(UUID);
+        Entry entry = ((ApplicationBase) getApplication()).getDatabaseRoot().getEntryByUUID(UUID);
 
         setTitle(entry.getTitle());
 
-        propertyListFragment = (EntryViewFragment)getSupportFragmentManager().findFragmentById(R.id.propertyListFragment);
+        propertyListFragment = (EntryViewFragment) getSupportFragmentManager().findFragmentById(R.id.propertyListFragment);
         propertyListFragment.setActiveEntry(entry);
 
         Intent intent = new Intent(this, EntryViewActivity.class);
@@ -49,12 +49,14 @@ public class EntryViewActivity extends AppCompatActivity {
         stackBuilder.addNextIntent(intent);
         PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent copyIntent = new Intent();
+        Intent copyIntent = new Intent(this, EntryViewActivity.class);
         copyIntent.setAction("com.joelkreutzwieser.apps.keepass.COPY_ACTION");
+        copyIntent.putExtra("DATA", propertyListFragment.getUser());
         PendingIntent copyPendingIntent = PendingIntent.getBroadcast(this, 12345, copyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent passIntent = new Intent();
-        copyIntent.setAction("com.joelkreutzwieser.apps.keepass.PASS_ACTION");
+        Intent passIntent = new Intent(this, EntryViewActivity.class);
+        passIntent.setAction("com.joelkreutzwieser.apps.keepass.PASS_ACTION");
+        passIntent.putExtra("DATA", propertyListFragment.getPassword());
         PendingIntent passPendingIntent = PendingIntent.getBroadcast(this, 12345, passIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new NotificationCompat.Builder(this)
@@ -70,7 +72,7 @@ public class EntryViewActivity extends AppCompatActivity {
                 .build();
         notificationID = 1;
 
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(notificationID, notification);
 
     }
@@ -78,7 +80,7 @@ public class EntryViewActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(notificationID);
     }
 

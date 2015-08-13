@@ -69,8 +69,8 @@ public class EntryViewFragment extends Fragment {
     }
 
     public void clickCopyProperty(View view) {
-        ClipboardManager clipboard = (ClipboardManager)getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        int selectedPosition = recyclerView.getChildLayoutPosition((View)view.getParent().getParent());
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        int selectedPosition = recyclerView.getChildLayoutPosition((View) view.getParent().getParent());
         Property property = properties.get(selectedPosition);
         ClipData clip = ClipData.newPlainText(property.getKey(), property.getValue());
         clipboard.setPrimaryClip(clip);
@@ -78,10 +78,10 @@ public class EntryViewFragment extends Fragment {
     }
 
     public void clickVisibilityProperty(View view) {
-        ImageView passwordVisibility = (ImageView)((View) view.getParent().getParent()).findViewById(R.id.propertyVisibility);
-        TextView password = (TextView)((View) view.getParent().getParent()).findViewById(R.id.propertyEntry);
+        ImageView passwordVisibility = (ImageView) ((View) view.getParent().getParent()).findViewById(R.id.propertyVisibility);
+        TextView password = (TextView) ((View) view.getParent().getParent()).findViewById(R.id.propertyEntry);
         Typeface typeface = password.getTypeface();
-        if(password.getTransformationMethod() == null) {
+        if (password.getTransformationMethod() == null) {
             password.setTransformationMethod(PasswordTransformationMethod.getInstance());
             passwordVisibility.setImageResource(R.drawable.ic_eye_black_24dp);
         } else {
@@ -89,5 +89,13 @@ public class EntryViewFragment extends Fragment {
             passwordVisibility.setImageResource(R.drawable.ic_eye_off_black_24dp);
         }
         password.setTypeface(typeface);
+    }
+
+    public String getUser() {
+        return activeEntry.getUserName();
+    }
+
+    public String getPassword() {
+        return activeEntry.getPassword();
     }
 }
