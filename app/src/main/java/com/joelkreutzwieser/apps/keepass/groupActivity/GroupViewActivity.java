@@ -142,6 +142,8 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     public void onDialogOriginSelect(View view) {
         ((DatabaseFileOriginFragment)dialogFragment).dismiss();
         Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
-        startActivityForResult(new Intent(this, FileBrowserActivity.class), 52);
+        Intent intent = new Intent(this, FileBrowserActivity.class);
+        intent.putExtra("ORIGIN", "DropBox");
+        startActivityForResult(intent, 52);
     }
 }
