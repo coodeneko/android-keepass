@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 public class ClipboardClearService extends Service {
@@ -17,10 +18,12 @@ public class ClipboardClearService extends Service {
     @Override
     public void onCreate() {
         handler = new Handler();
+        Log.v("KEEPASS", "CREATE");
 
         runnable = new Runnable() {
             @Override
             public void run() {
+                Log.v("KEEPASS", "RUNNER");
                 ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("", "");
                 clipboard.setPrimaryClip(clip);
@@ -33,6 +36,7 @@ public class ClipboardClearService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.v("KEEPASS", "COMMAND");
         handler.removeCallbacks(runnable);
         handler.postDelayed(runnable, 30);
 

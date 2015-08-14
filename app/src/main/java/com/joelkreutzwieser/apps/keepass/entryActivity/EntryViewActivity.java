@@ -45,17 +45,18 @@ public class EntryViewActivity extends AppCompatActivity {
         propertyListFragment.setActiveEntry(entry);
 
         Intent intent = new Intent(this, EntryViewActivity.class);
+        intent.putExtra("UUID", UUID);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(EntryViewActivity.class);
         stackBuilder.addNextIntent(intent);
         PendingIntent pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent copyIntent = new Intent(this, EntryViewActivity.class);
+        Intent copyIntent = new Intent();
         copyIntent.setAction("com.joelkreutzwieser.apps.keepass.COPY_ACTION");
         copyIntent.putExtra("DATA", propertyListFragment.getUser());
         PendingIntent copyPendingIntent = PendingIntent.getBroadcast(this, 12345, copyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent passIntent = new Intent(this, EntryViewActivity.class);
+        Intent passIntent = new Intent();
         passIntent.setAction("com.joelkreutzwieser.apps.keepass.PASS_ACTION");
         passIntent.putExtra("DATA", propertyListFragment.getPassword());
         PendingIntent passPendingIntent = PendingIntent.getBroadcast(this, 12345, passIntent, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -31,7 +31,7 @@ public class KeePassDatabaseTest {
 
     @Test
     public void testOpenDatabase() throws Exception {
-        KeePassFile keePassDatabase = KeePassDatabase.getInstance("src\\test\\res\\testDatabase.kdbx").openDatabase("abcdefg");
+        KeePassFile keePassDatabase = KeePassDatabase.getInstance("src\\test\\res\\testDatabase.kdbx").openDatabase("abcdefg", null, null);
         Assert.assertEquals("KeePass",keePassDatabase.getMeta().getGenerator());
         Assert.assertEquals("TestDatabase",keePassDatabase.getMeta().getDatabaseName());
     }
@@ -63,7 +63,7 @@ public class KeePassDatabaseTest {
 
     @Test
     public void testDatabaseDecryption() throws Exception {
-        KeePassFile keePassDatabase = KeePassDatabase.getInstance("src\\test\\res\\testDatabase.kdbx").openDatabase("abcdefg");
+        KeePassFile keePassDatabase = KeePassDatabase.getInstance("src\\test\\res\\testDatabase.kdbx").openDatabase("abcdefg", null, null);
         Assert.assertEquals("1v4QKuIUT6HHRkbq0MPL", keePassDatabase.getMainGroup().getGroups().get(0).getEntries().get(0).getPassword());
     }
 
