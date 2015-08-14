@@ -3,6 +3,7 @@ package com.joelkreutzwieser.apps.keepass.dropbox;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.dropbox.client2.DropboxAPI;
@@ -16,7 +17,7 @@ import java.util.Date;
 public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
 
     private final String name;
-    private DropboxFileActivity activity;
+    private AppCompatActivity activity;
     private Context context;
     private DropboxAPI<?> dropbox;
     private String path;
@@ -32,7 +33,7 @@ public class DropboxFileDownloader extends AsyncTask<Void, Void, File> {
         progressDialog.show();
     }
 
-    public DropboxFileDownloader(DropboxAPI<?> dropbox, String path, String name, DropboxFileActivity activity) {
+    public DropboxFileDownloader(DropboxAPI<?> dropbox, String path, String name, AppCompatActivity activity) {
         this.dropbox = dropbox;
         this.path = path;
         this.activity = activity;

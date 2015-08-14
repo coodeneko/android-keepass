@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import com.joelkreutzwieser.apps.keepass.DatabaseFileOriginFragment;
 import com.joelkreutzwieser.apps.keepass.KeePassDrawerLayout;
+import com.joelkreutzwieser.apps.keepass.fileBrowser.FileBrowserActivity;
 import com.joelkreutzwieser.apps.keepass.navigationView.NavigationDrawerFragment;
 import com.joelkreutzwieser.apps.keepass.R;
 import com.joelkreutzwieser.apps.keepass.searchActivity.SearchActivity;
-import com.joelkreutzwieser.apps.keepass.dropbox.DropboxFileActivity;
 import com.joelkreutzwieser.apps.keepass.keepass.domain.Group;
 
 import java.io.File;
@@ -142,6 +142,6 @@ public class GroupViewActivity extends AppCompatActivity implements NavigationDr
     public void onDialogOriginSelect(View view) {
         ((DatabaseFileOriginFragment)dialogFragment).dismiss();
         Toast.makeText(this, "New Database load", Toast.LENGTH_SHORT).show();
-        startActivityForResult(new Intent(this, DropboxFileActivity.class), 52);
+        startActivityForResult(new Intent(this, FileBrowserActivity.class), 52);
     }
 }

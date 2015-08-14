@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".dropbox.DropboxFileActivity"
+            android:name=".fileBrowser.FileBrowserActivity"
             android:label="@string/title_activity_dropbox_file" >
         </activity>
         <receiver android:name=".NotificationBroadcastReceiver">

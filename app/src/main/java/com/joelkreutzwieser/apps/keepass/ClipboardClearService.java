@@ -27,7 +27,7 @@ public class ClipboardClearService extends Service {
                 ClipboardManager clipboard = (ClipboardManager) getApplicationContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("", "");
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(getApplicationContext(), "Clearing Clipboard Service Done (NOT ACTUALLY CLEARED)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Clearing Clipboard Service Done", Toast.LENGTH_SHORT).show();
             }
         };
 
