@@ -1,4 +1,4 @@
-package com.joelkreutzwieser.apps.keepass.dropbox;
+package com.joelkreutzwieser.apps.keepass.fileBrowser.fileList;
 
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
@@ -11,14 +11,14 @@ import com.joelkreutzwieser.apps.keepass.dropbox.DropboxFileAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListDropboxFiles extends AsyncTask<Void, Void, List<Entry>> {
+public class FileListDropBox extends AsyncTask<Void, Void, List<Entry>> {
 
     private DropboxAPI<?> dropbox;
     private String path;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-    public ListDropboxFiles(DropboxAPI<?> dropbox, String path, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+    public FileListDropBox(DropboxAPI<?> dropbox, String path, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         this.dropbox = dropbox;
         this.path = path;
         this.recyclerView = recyclerView;

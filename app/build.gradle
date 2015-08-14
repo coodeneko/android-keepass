@@ -9,7 +9,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 22
         versionCode 5
-        versionName "0.5.20150813"
+        versionName "0.5." + getDate()
     }
     buildTypes {
         release {
@@ -41,4 +41,10 @@ dependencies {
     compile files('libs/dropbox-android-sdk-1.6.3.jar')
     compile files('libs/json_simple-1.1.jar')
     compile files('libs/httpmime-4.0.3.jar')
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMdd')
+    return formattedDate
 }
