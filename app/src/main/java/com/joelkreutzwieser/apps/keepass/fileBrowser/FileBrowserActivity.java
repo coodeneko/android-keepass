@@ -1,5 +1,6 @@
 package com.joelkreutzwieser.apps.keepass.fileBrowser;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.joelkreutzwieser.apps.keepass.dropbox.DropboxFileDownloader;
 import com.joelkreutzwieser.apps.keepass.dropbox.ListDropboxFiles;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,9 @@ public class FileBrowserActivity extends AppCompatActivity {
             case "DropBox":
                 //TODO: Check for internet permission
                 //TODO: Check for internet connection
+                if(!checkInternetConnect(getApplicationContext())) {
+                    throw new IllegalArgumentException("No Internet Access");
+                }
                 AppKeyPair appKeys = new AppKeyPair(APP_KEY, APP_SECRET);
                 AndroidAuthSession session = new AndroidAuthSession(appKeys);
                 mDBApi = new DropboxAPI<>(session);
@@ -136,5 +141,19 @@ public class FileBrowserActivity extends AppCompatActivity {
                 Log.i("DbFileLog", "Error saving file to disk", e);
             }
         }
+    }
+
+    private boolean checkInternetConnect(Context context) {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+
+        } catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+
+        return false;
     }
 }
